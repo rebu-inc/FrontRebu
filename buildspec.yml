@@ -6,13 +6,13 @@ phases:
       - npm install -g yarn
   pre_build:
     commands:
-      - yarn install
+      - npm install
   build:
     commands:
-      - yarn build
+      - npm build
   post_build:
     commands:
-      - echo nothing to do
+      - npm run serve
 artifacts:
   files:
     - '**/*'
