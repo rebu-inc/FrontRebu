@@ -15,5 +15,6 @@ phases:
       - echo nothing to do
 artifacts:
   files:
+    - type: zip
     - '**/*'
   base-directory: dist
