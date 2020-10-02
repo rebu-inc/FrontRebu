@@ -7,11 +7,9 @@ phases:
   pre_build:
     commands:
       - yarn
-      - npm install -g jest
   build:
     commands:
       - yarn build
-      - npm run test:ci
   post_build:
     commands:
       - echo nothing to do
