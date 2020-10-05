@@ -4,9 +4,9 @@
     <b-row>
      <h1></h1>
        <b-col>
-         <img src="../assets/Quinessomos.png" style="width:500px" height="370" alt="holi">
+         <img src="../assets/Quinessomos.png" style="width:500px" height="330" alt="holi">
        </b-col>
-       <b-col class="pt-5 pr-5 ">
+       <b-col class="pt-3 pr-5">
          <h2 class="text-justify font-weight-bold">
           TicketWork esta compuesto por un grupo de desarrolladores que buscan ser una
          solución para las labores diarias de todo tipo empresa, brindando herramientas útiles y fáciles
