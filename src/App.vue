@@ -14,8 +14,8 @@
         <li><a href="https://www.facebook.com/" target="_blank" > <img src="./assets/facebook.png" height="20px"></a></li>
         <li><a href="https://www.instagram.com/" target="_blank" > <img src="./assets/instagram.png" height="20px"></a></li>
         <li><a href="https://www.twitter.com/" target="_blank" > <img src="./assets/twitter.png" height="20px"></a></li>
-        <li><a href="https://www.web.whatsapp.com/" target="_blank" > <img src="./assets/whatsapp.png" height="20px"></a></li>
-        <li><a href="https://www.gmail.com/" target="_blank" > <img src="./assets/Mail.png" height="20px"></a></li>
+        <li><a href="https://api.whatsapp.com/send?phone=+573212660579&text=Hola" target="_blank" > <img src="./assets/whatsapp.png" height="20px"></a></li>
+        <li><a href="mailto:jebalseroo@unal.edu.co?Subject=Interesado%20en%20el%20curso" target="_blank" > <img src="./assets/Mail.png" height="20px"></a></li>
         <li><a id="ter" href="https://drive.google.com/drive/folders/10XPMfEa8Hyuu5BZT9-lRzrPjWY-ruIjz?usp=sharing" target="_blank"> Terminos y condiciones </a></li>
       </div>
     </div>
@@ -67,15 +67,21 @@ li:hover{
 }
 #con{
   background: #087589;
-  position: absolute;
+  position: relative;
   width: 100%;
   bottom:0;
   color: black;
   position:fixed;
 }
+
 #log li{
   background: none;
   padding: 10px;
+}
+
+#log li h1{
+  padding: 0px;
+  height: 10px;
 }
 #log li:hover{
   background: none;
