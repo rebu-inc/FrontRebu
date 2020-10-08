@@ -14,7 +14,7 @@ pipelines:
           name: Deploy
           deployment: production
           script:
-            - pipe: atlassian/aws-s3-deploy:0.2.4
+            - pipe: atlassian/aws-s3-deploy:0.4.5
               variables:
                 AWS_ACCESS_KEY_ID: "AKIATAIRXHBURAK2QAZ3"
                 AWS_SECRET_ACCESS_KEY: "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"
