@@ -9,7 +9,7 @@ phases:
       - yarn
   build:
     commands:
-      - yarn build
+      - npm run-script build
   post_build:
     commands:
       - echo nothing to do
