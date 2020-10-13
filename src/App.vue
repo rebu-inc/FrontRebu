@@ -3,8 +3,9 @@
     <div id="nav">
       <router-link tag="li" id="li1" to="/"> <img src="./assets/ticketwork.png" height="90px" align="center"></router-link>
       <router-link tag="li" to="/QuienesSomos" >Quienes somos </router-link>
-      <router-link tag="li" to="/Servicios">servicios</router-link>
+      <router-link tag="li" to="/Servicios">Servicios</router-link>
       <router-link tag="li" to="/Contacto">Contacto</router-link>
+      <router-link tag="li" to="/Registro">Registro</router-link>
       <router-link tag="li" to="/Login">login</router-link>
     </div>
     <router-view/>
@@ -94,6 +95,7 @@ li:hover{
 }
 #ter{
   font-size: 30px;
+  color:black;
 }
 #ter:visited{
   color:black;
