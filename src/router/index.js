@@ -34,6 +34,11 @@ const routes = [
     path: '/Registro',
     name: 'Registro',
     component: () => import('../views/Registro.vue')
+  },
+  {
+    path: '/Inicio-operador',
+    name: 'Inicio-operador',
+    component: () => import('../views/Inicio-operador.vue')
   }
 ]
 const router = new VueRouter({
