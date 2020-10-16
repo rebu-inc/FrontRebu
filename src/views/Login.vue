@@ -7,10 +7,10 @@
   <b-col class="my-4">
     <b-row sm="9">
       <b-col align-self="start">
-      <img src="../assets/Usuario.png" style="width:50px" alt="holi">
+          <img src="../assets/Usuario.png" style="width:50px" alt="holi">
        </b-col>
        <b-col >
-       <b-form-input style="width:550px" id="input-none" :state="null" placeholder="e-mail"
+           <b-form-input style="width:550px" id="input-none" :state="null" placeholder="e-mail"
        type="email" class="form-control form-control-lg" ></b-form-input>
         </b-col>
     </b-row>
@@ -30,7 +30,7 @@
        <h1></h1>
         <b-row sm="3" class="pl-5">
             <p class="forgot-password text-center" style="width:290px" >
-                <router-link to="/forgot-password">¿Olvidaste tu contraseña?</router-link>
+                <router-link to="Inicio-operador">¿Olvidaste tu contraseña?</router-link>
             </p>
       </b-row>
    </b-col>
