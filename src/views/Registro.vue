@@ -47,7 +47,7 @@
           v-model="form.email"
           type="email"
           required
-          placeholder="Email"
+          placeholder="E-mail"
         ></b-form-input>
       </b-form-group>
 
