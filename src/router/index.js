@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Landing from '../views/Landing.vue'
 
 Vue.use(VueRouter)
 
@@ -45,7 +46,7 @@ const routes = [
   {
     path: '/Landing',
     name: 'Landing',
-    component: () => import('../views/Landing.vue'),
+    component: Landing,
     children: [
       {
         path: '/Landing-operador',
