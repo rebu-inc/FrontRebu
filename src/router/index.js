@@ -58,10 +58,22 @@ const routes = [
         name: 'Landing-Cliente',
         component: () => import('../views/Landing-Cliente.vue')
       }
-
+    ]
+  },
+  {
+    path: '/Landing-operador',
+    name: 'Landing-operador',
+    component: () => import('../views/Landing-operador.vue'),
+    children: [
+      {
+        path: '/OperdorScervicios',
+        name: 'OperdorServicios',
+        component: () => import('../views/OperdorServicios.vue')
+      }
     ]
   }
 ]
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

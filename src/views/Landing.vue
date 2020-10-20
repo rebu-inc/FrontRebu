@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import operador from '@/components/Landing-operador.vue'
+import operador from '@/views/Landing-operador.vue'
 
 export default {
   name: 'Landing',
