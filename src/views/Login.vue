@@ -11,7 +11,7 @@
        </b-col>
        <b-col >
            <b-form-input style="width:550px" id="input-none" :state="null" placeholder="e-mail"
-       type="email" class="form-control form-control-lg" ></b-form-input>
+       type="email" class="form-control form-control-lg" required=""></b-form-input>
         </b-col>
     </b-row>
     <h1></h1>
@@ -21,16 +21,16 @@
        </b-col>
        <b-col>
       <b-form-input style="width:550px" id="input-none" :state="null" placeholder="Contraseña"
-       type="password" class="form-control form-control-lg" ></b-form-input>
+       type="password" class="form-control form-control-lg" required></b-form-input>
        </b-col>
       <b-col class="pt-2">
-      <button type="submit" style="width:465px" class="btn btn-dark btn-lg btn-block">Ingresar</button>
+      <button type="submit" style="width:465px" class="btn btn-danger btn-lg btn-block">Ingresar</button>
        </b-col>
     </b-row>
        <h1></h1>
         <b-row sm="3" class="pl-5">
-            <p class="forgot-password text-center" style="width:290px" >
-                <router-link to="Inicio-operador">¿Olvidaste tu contraseña?</router-link>
+            <p class="forgot-password text-center" style="width:290px">
+                <router-link to="/Landing">¿Olvidaste tu contraseña?</router-link>
             </p>
       </b-row>
    </b-col>
