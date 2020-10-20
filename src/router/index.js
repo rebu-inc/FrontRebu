@@ -49,11 +49,6 @@ const routes = [
     component: Landing,
     children: [
       {
-        path: '/Landing-operador',
-        name: 'Landing-operador',
-        component: () => import('../views/Landing-operador.vue')
-      },
-      {
         path: '/Landing-Administrador',
         name: 'Landing-Administrador',
         component: () => import('../views/Landing-Administrador.vue')
