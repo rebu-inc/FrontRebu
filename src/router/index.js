@@ -43,26 +43,35 @@ const routes = [
     ]
   },
   {
-    path: '/Landing',
-    name: 'Landing',
-    component: () => import('../views/Landing.vue'),
+    path: '/Landing-Administrador',
+    name: 'Landing-Administrador',
+    component: () => import('../views/Landing-Administrador.vue'),
     children: [
       {
-        path: '/Landing-operador',
-        name: 'Landing-operador',
-        component: () => import('../views/Landing-operador.vue')
+        path: '/AdminServicios',
+        name: 'AdminServicios',
+        component: () => import('../views/AdminServicios.vue')
       },
       {
-        path: '/Landing-Administrador',
-        name: 'Landing-Administrador',
-        component: () => import('../views/Landing-Administrador.vue')
+        path: '/AdminOperadores',
+        name: 'AdminOperadores',
+        component: () => import('../views/AdminOperadores.vue')
       },
       {
-        path: '/Landing-Cliente',
-        name: 'Landing-Cliente',
-        component: () => import('../views/Landing-Cliente.vue')
+        path: '/AdminTickets',
+        name: 'AdminTickets',
+        component: () => import('../views/AdminTickets.vue')
+      },
+      {
+        path: '/AdminClientes',
+        name: 'AdminClientes',
+        component: () => import('../views/AdminClientes.vue')
+      },
+      {
+        path: '/AdminReporte',
+        name: 'AdminReporte',
+        component: () => import('../views/AdminReporte.vue')
       }
-
     ]
   }
 ]

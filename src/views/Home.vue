@@ -1,23 +1,26 @@
 <template><div id="app">
-  <div id="nav">
-      <router-link tag="li" id="li1" to="/Inicio"> <img src="../assets/ticketwork.png" height="90px" align="center"></router-link>
-      <router-link tag="li" to="/QuienesSomos" >Quienes somos </router-link>
-      <router-link tag="li" to="/Servicios">Servicios</router-link>
-      <router-link tag="li" to="/Contacto">Contacto</router-link>
-      <router-link tag="li" to="/Registro">Registro</router-link>
-      <router-link tag="li" to="/Login">login</router-link>
-    </div>
-    <router-view/>
-    <div id = "con">
-      <div id  = "log">
-        <li><h1>Contactenos</h1></li>
-        <li><a href="https://www.facebook.com/" target="_blank" > <img src="../assets/facebook.png" height="20px"></a></li>
-        <li><a href="https://www.instagram.com/" target="_blank" > <img src="../assets/instagram.png" height="20px"></a></li>
-        <li><a href="https://www.twitter.com/" target="_blank" > <img src="../assets/twitter.png" height="20px"></a></li>
-        <li><a href="https://api.whatsapp.com/send?phone=+573212660579&text=Hola" target="_blank" > <img src="../assets/whatsapp.png" height="20px"></a></li>
-        <li><a href="mailto:jebalseroo@unal.edu.co?Subject=Interesado%20en%20el%20curso" target="_blank" > <img src="../assets/Mail.png" height="20px"></a></li>
-        <li><a id="ter" href="https://drive.google.com/drive/folders/10XPMfEa8Hyuu5BZT9-lRzrPjWY-ruIjz?usp=sharing" target="_blank"> Terminos y condiciones </a></li>
+    <div class="row">
+      <div id="nav">
+          <b-button-group vertical style="width:270px" size="lg">
+            <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Juan!<br></b-button>
+            <b-button variant="danger" router-link tag="li" to="/AdminServicios"><br><strong>Servicios</strong><br><br></b-button>
+            <b-button variant="danger" router-link tag="li" to="/AdminOperadores"><br><strong>Operadores</strong><br><br></b-button>
+            <b-button variant="danger" router-link tag="li" to="/AdminTickets"><br><strong>Tickets</strong><br><br></b-button>
+            <b-button variant="danger" router-link tag="li" to="/AdminClientes"><br><strong>Clientes</strong><br><br></b-button>
+            <b-button variant="danger" router-link tag="li" to="/AdminReporte"><br><strong>Reporte</strong><br><br></b-button>
+          </b-button-group>
       </div>
+        <div class="col" style="width:10px">
+            <div id="nav1">
+              <b-input-group prepend="Buscar" style="width:1000px">
+                <b-form-input></b-form-input>
+                <b-input-group-append>
+                  <b-button variant="info">ir</b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </div>
+          <router-view/>
+        </div>
     </div>
   </div>
 </template>
@@ -28,20 +31,25 @@
 <style>
 #app {
   font-family: Oswald, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
 }
 
 #nav {
   list-style: none;
-  padding: 0px;
+  padding:0px;
   background: #f4e0de;
-  width: 100%;
+  width:19%;
   max-width: 10000px;
-  margin: auto;
-  font-size: 26px;
+  color: #EB6359;
+}
+
+#nav1 {
+  list-style: none;
+  padding:15px;
+  background: #7DADE6;
+  width:220%;
+  max-width: 10000px;
 }
 
 #nav a {
