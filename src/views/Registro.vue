@@ -95,12 +95,9 @@ export default {
     }
   },
   methods: {
-    submit (event) {
-      if (this.nombre === 'juan') {
-        this.$router.push('/Landing')
-      } else {
-        alert(Error)
-      }
+    onSubmit (evt) {
+      evt.preventDefault()
+      alert(JSON.stringify(this.form))
     },
     onReset (evt) {
       evt.preventDefault()
