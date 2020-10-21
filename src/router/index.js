@@ -61,7 +61,14 @@ const routes = [
       {
         path: '/AdminOperadores',
         name: 'AdminOperadores',
-        component: () => import('../views/AdminOperadores.vue')
+        component: () => import('../views/AdminOperadores.vue'),
+        children: [
+          {
+            path: '/RegistroAdmin',
+            name: 'RegistroAdmin',
+            component: () => import('../views/RegistroAdmin.vue')
+          }
+        ]
       },
       {
         path: '/AdminTickets',

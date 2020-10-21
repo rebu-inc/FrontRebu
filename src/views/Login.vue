@@ -2,7 +2,7 @@
     <b-container fluid>
         <div align="center" class="pt-5 pl-5">
             <b-card style="width:710px">
-                <form @submit="login">
+                <form @submit="login2">
                     <h3>¡Bienvenido/a!</h3>
                     <b-col class="my-4">
                         <b-row sm="9">
@@ -11,7 +11,7 @@
                             </b-col>
                             <b-col >
                                 <b-form-input style="width:550px" id="input-none" :state="null" placeholder="e-mail"
-                                type="email" class="form-control form-control-lg" v-model="username" required="" ></b-form-input>
+                                 class="form-control form-control-lg" v-model="username" required="" ></b-form-input>
                             </b-col>
                         </b-row>
                         <h1></h1>
@@ -54,20 +54,22 @@ export default {
   methods: {
     login (event) {
       axios
-        .post('http://localhost:4040/login/principal', { }, // Body
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            params: {
-              username: this.username,
-              password: this.password
-            },
-            auth: {
-              username: 'soft-eng-ii',
-              password: 'secret'
-            }
+        .post('http://localhost:4040/login/principal', {
+          username: this.username,
+          password: this.password,
+          crossdomain: true
+        }, // Body
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          params: {
+          },
+          auth: {
+            username: 'soft-eng-ii',
+            password: 'secret'
           }
+        }
         ).then(response => {
           if (response.status !== 'Usuario O Contraseña Erroneo') {
             alert('Error en la autenticación')
@@ -76,6 +78,16 @@ export default {
           }
         })
       event.preventDefault()
+    },
+    login2 (event) {
+      if (this.username === 'admin') {
+        this.$router.push('/Landing-Administrador')
+      } else if (this.username === 'cliente') {
+      } else if (this.username === 'operador') {
+        this.$router.push('/Landing')
+      } else {
+        alert('no se encontro vista')
+      }
     }
   }
 }

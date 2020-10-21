@@ -44,7 +44,7 @@
   list-style: none;
   padding:15px;
   background: #7DADE6;
-  width:220%;
+  width:100%;
   max-width: 10000px;
 }
 

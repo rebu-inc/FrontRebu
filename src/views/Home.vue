@@ -1,4 +1,4 @@
-<template><div id="app">
+<template><div id="app2">
   <div id="nav2">
       <router-link tag="li" id="li1" to="/Inicio"> <img src="../assets/ticketwork.png" height="90px" align="center"></router-link>
       <router-link tag="li" to="/QuienesSomos" >Quienes somos </router-link>
@@ -26,7 +26,7 @@
 </script>
 
 <style>
-#app {
+#app2 {
   font-family: Oswald, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -42,13 +42,13 @@
   max-width: 10000px;
   margin: center;
   font-size: 26px;
+  justify-content: center;
 }
 
 #nav2 a {
   text-decoration: none;
   color: black;
   display: inline-block;
-  justify-content: center
 }
 
 li {
