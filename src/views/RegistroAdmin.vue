@@ -124,13 +124,13 @@ export default {
     onSubmit (evt) {
       if (this.form.Usuario === 'jairo') {
         evt.preventDefault()
-        alert('Usuario Ya Existe')
+        alert('Usuario Registrado')
       } else if (this.form.Usuario === 'julio') {
         evt.preventDefault()
-        alert('Usuario Ya Existe')
+        alert('Usuario Registrado')
       } else {
         evt.preventDefault()
-        alert('Usuario Registrado')
+        alert('Usuario Ya Existe')
       }
     },
     onReset (evt) {
