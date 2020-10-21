@@ -90,16 +90,10 @@
         <b-form-input
           id="input-default"
           v-model="form.Correo"
+          type='email'
           required
           placeholder="Correo"
         ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-5">
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes">
-          <b-form-checkbox value="Operador">Operador</b-form-checkbox>
-          <b-form-checkbox value="Cliente">Cliente</b-form-checkbox>
-        </b-form-checkbox-group>
       </b-form-group>
 
       <b-button  type="submit" variant="primary">Submit</b-button>
@@ -121,8 +115,7 @@ export default {
         Clave: '',
         Cedula: '',
         Usuario: '',
-        Correo: '',
-        checked: []
+        Correo: ''
       },
       show: true
     }
@@ -147,7 +140,6 @@ export default {
       this.form.Cedula = ''
       this.form.Usuario = ''
       this.form.Correo = ''
-      this.form.checked = []
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {
