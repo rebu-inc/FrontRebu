@@ -4,7 +4,7 @@
 
       <h3>REGISTRO</h3>
 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="pt-2">
+    <b-form action="mailto:ticketwork@gmail.com" method="post" enctype="text/plain" @submit="onSubmit" @reset="onReset" v-if="show" class="pt-2">
 
       <b-form-group
        label-cols="1"
@@ -68,12 +68,12 @@
 
       <b-form-group id="input-group-5">
         <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">Prestadora</b-form-checkbox>
-          <b-form-checkbox value="that">Solicitante</b-form-checkbox>
+          <b-form-checkbox value="Prestadora">Prestadora</b-form-checkbox>
+          <b-form-checkbox value="Solicitante">Solicitante</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
 
-      <b-button  type="submit" variant="primary">Submit</b-button>
+      <b-button  type="submit" variant="primary" >Submit</b-button>
       <b-button class="m-2" type="reset" variant="danger">Reset</b-button>
     </b-form>
   </b-card>
@@ -92,26 +92,6 @@ export default {
         checked: []
       },
       show: true
-    }
-  },
-  methods: {
-    onSubmit (evt) {
-      evt.preventDefault()
-      alert(JSON.stringify(this.form))
-    },
-    onReset (evt) {
-      evt.preventDefault()
-      // Reset our form values
-      this.form.nombre = ''
-      this.form.email = ''
-      this.form.nit = ''
-      this.form.telefono = ''
-      this.form.checked = []
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
     }
   }
 }
