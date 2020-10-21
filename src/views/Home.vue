@@ -1,5 +1,5 @@
 <template><div id="app">
-  <div id="nav">
+  <div id="nav2">
       <router-link tag="li" id="li1" to="/Inicio"> <img src="../assets/ticketwork.png" height="90px" align="center"></router-link>
       <router-link tag="li" to="/QuienesSomos" >Quienes somos </router-link>
       <router-link tag="li" to="/Servicios">Servicios</router-link>
@@ -34,20 +34,21 @@
   color: #2c3e50;
 }
 
-#nav {
+#nav2 {
   list-style: none;
   padding: 0px;
   background: #f4e0de;
   width: 100%;
   max-width: 10000px;
-  margin: auto;
+  margin: center;
   font-size: 26px;
 }
 
-#nav a {
+#nav2 a {
   text-decoration: none;
   color: black;
   display: inline-block;
+  justify-content: center
 }
 
 li {
