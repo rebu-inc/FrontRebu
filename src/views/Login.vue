@@ -41,7 +41,7 @@
     </b-container>
 </template>
 <script>
-
+import axios from 'axios'
 export default {
   name: 'Login.vue',
   components: {},
@@ -53,11 +53,29 @@ export default {
   },
   methods: {
     login (event) {
-      if (this.username === 'juan@gmail.com') {
-        this.$router.push('/Landing')
-      } else {
-        alert(Error)
-      }
+      axios
+        .post('http://localhost:4040/login/principal', { }, // Body
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            params: {
+              username: this.username,
+              password: this.password
+            },
+            auth: {
+              username: 'soft-eng-ii',
+              password: 'secret'
+            }
+          }
+        ).then(response => {
+          if (response.status !== 'Usuario O Contraseña Erroneo') {
+            alert('Error en la autenticación')
+          } else {
+            this.$router.push('/Landing')
+          }
+        })
+      event.preventDefault()
     }
   }
 }
