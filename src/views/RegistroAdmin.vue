@@ -122,12 +122,14 @@ export default {
   },
   methods: {
     onSubmit (evt) {
-      if (this.form.nombre === 'Julio' && this.form.Apellidos === 'aguirre rojas' && this.form.Clave === 'A123' && this.form.Cedula === '1014698563' && this.form.Usuario === 'DonPedro' && this.form.Correo === 'DonPedro@unal.com') {
+      if (this.form.Usuario === 'jairo') {
+        evt.preventDefault()
+        alert('El empleado ya esta resgistrado en la plataforma')
+      } else if (this.form.Usuario === 'julio') {
         evt.preventDefault()
         alert('El empleado ya esta resgistrado en la plataforma')
       } else {
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
         alert('Usuario Registrado')
       }
     },
