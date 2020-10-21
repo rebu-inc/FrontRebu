@@ -124,10 +124,10 @@ export default {
     onSubmit (evt) {
       if (this.form.Usuario === 'jairo') {
         evt.preventDefault()
-        alert('El empleado ya esta resgistrado en la plataforma')
+        alert('Usuario Ya Existe')
       } else if (this.form.Usuario === 'julio') {
         evt.preventDefault()
-        alert('El empleado ya esta resgistrado en la plataforma')
+        alert('Usuario Ya Existe')
       } else {
         evt.preventDefault()
         alert('Usuario Registrado')
