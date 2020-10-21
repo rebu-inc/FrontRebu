@@ -48,7 +48,7 @@
   list-style: none;
   padding:15px;
   background: #7DADE6;
-  width:220%;
+  width:100%;
   max-width: 10000px;
 }
 
@@ -79,7 +79,7 @@ li:hover{
 #con{
   background: #087589;
   position: relative;
-  width: 100%;
+  width: 10%;
   bottom:0;
   color: black;
   position:fixed;
