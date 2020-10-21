@@ -11,7 +11,7 @@
                             </b-col>
                             <b-col >
                                 <b-form-input style="width:550px" id="input-none" :state="null" placeholder="e-mail"
-                                type="email" class="form-control form-control-lg" v-model="username" ></b-form-input>
+                                type="email" class="form-control form-control-lg" v-model="username" required="" ></b-form-input>
                             </b-col>
                         </b-row>
                         <h1></h1>
@@ -21,7 +21,7 @@
                             </b-col>
                             <b-col>
                                 <b-form-input style="width:550px" id="input-none" :state="null" placeholder="Contraseña"
-                                type="password" class="form-control form-control-lg" v-model="password" ></b-form-input>
+                                type="password" class="form-control form-control-lg" v-model="password" required></b-form-input>
                             </b-col>
                             <b-col class="pt-2">
                                 <button type="submit" style="width:465px" class="btn btn-dark btn-lg btn-block">Ingresar</button>

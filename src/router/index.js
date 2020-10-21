@@ -46,17 +46,37 @@ const routes = [
   {
     path: '/Landing',
     name: 'Landing',
-    component: Landing,
+    component: Landing
+  },
+  {
+    path: '/Landing-Administrador',
+    name: 'Landing-Administrador',
+    component: () => import('../views/Landing-Administrador.vue'),
     children: [
       {
-        path: '/Landing-Administrador',
-        name: 'Landing-Administrador',
-        component: () => import('../views/Landing-Administrador.vue')
+        path: '/AdminServicios',
+        name: 'AdminServicios',
+        component: () => import('../views/AdminServicios.vue')
       },
       {
-        path: '/Landing-Cliente',
-        name: 'Landing-Cliente',
-        component: () => import('../views/Landing-Cliente.vue')
+        path: '/AdminOperadores',
+        name: 'AdminOperadores',
+        component: () => import('../views/AdminOperadores.vue')
+      },
+      {
+        path: '/AdminTickets',
+        name: 'AdminTickets',
+        component: () => import('../views/AdminTickets.vue')
+      },
+      {
+        path: '/AdminClientes',
+        name: 'AdminClientes',
+        component: () => import('../views/AdminClientes.vue')
+      },
+      {
+        path: '/AdminReporte',
+        name: 'AdminReporte',
+        component: () => import('../views/AdminReporte.vue')
       }
     ]
   },
