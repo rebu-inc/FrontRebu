@@ -90,16 +90,10 @@
         <b-form-input
           id="input-default"
           v-model="form.Correo"
+          type='email'
           required
           placeholder="Correo"
         ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-5">
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes">
-          <b-form-checkbox value="Operador">Operador</b-form-checkbox>
-          <b-form-checkbox value="Cliente">Cliente</b-form-checkbox>
-        </b-form-checkbox-group>
       </b-form-group>
 
       <b-button  type="submit" variant="primary">Submit</b-button>
@@ -111,6 +105,8 @@
 
 <script>
 export default {
+  name: 'RegistroAdmin.vue',
+  components: {},
   data () {
     return {
       form: {
@@ -119,16 +115,23 @@ export default {
         Clave: '',
         Cedula: '',
         Usuario: '',
-        Correo: '',
-        checked: []
+        Correo: ''
       },
       show: true
     }
   },
   methods: {
     onSubmit (evt) {
-      evt.preventDefault()
-      alert(JSON.stringify(this.form))
+      if (this.form.Usuario === 'jairo') {
+        evt.preventDefault()
+        alert('Usuario Ya Existe')
+      } else if (this.form.Usuario === 'julio') {
+        evt.preventDefault()
+        alert('Usuario Ya Existe')
+      } else {
+        evt.preventDefault()
+        alert('Usuario Registrado')
+      }
     },
     onReset (evt) {
       evt.preventDefault()
@@ -139,7 +142,6 @@ export default {
       this.form.Cedula = ''
       this.form.Usuario = ''
       this.form.Correo = ''
-      this.form.checked = []
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {
