@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Landing from '../views/Landing.vue'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
     ]
   },
   {
+    path: '/Landing',
+    name: 'Landing',
+    component: Landing
+  },
+  {
     path: '/Landing-Administrador',
     name: 'Landing-Administrador',
     component: () => import('../views/Landing-Administrador.vue'),
@@ -55,7 +61,14 @@ const routes = [
       {
         path: '/AdminOperadores',
         name: 'AdminOperadores',
-        component: () => import('../views/AdminOperadores.vue')
+        component: () => import('../views/AdminOperadores.vue'),
+        children: [
+          {
+            path: '/RegistroAdmin',
+            name: 'RegistroAdmin',
+            component: () => import('../views/RegistroAdmin.vue')
+          }
+        ]
       },
       {
         path: '/AdminTickets',
@@ -73,8 +86,21 @@ const routes = [
         component: () => import('../views/AdminReporte.vue')
       }
     ]
+  },
+  {
+    path: '/Landing-operador',
+    name: 'Landing-operador',
+    component: () => import('../views/Landing-operador.vue'),
+    children: [
+      {
+        path: '/OperdorScervicios',
+        name: 'OperdorServicios',
+        component: () => import('../views/OperdorServicios.vue')
+      }
+    ]
   }
 ]
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
