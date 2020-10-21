@@ -111,6 +111,8 @@
 
 <script>
 export default {
+  name: 'RegistroAdmin.vue',
+  components: {},
   data () {
     return {
       form: {
@@ -127,8 +129,14 @@ export default {
   },
   methods: {
     onSubmit (evt) {
-      evt.preventDefault()
-      alert(JSON.stringify(this.form))
+      if (this.form.nombre === 'Julio' && this.form.Apellidos === 'aguirre rojas' && this.form.Clave === 'A123' && this.form.Cedula === '1014698563' && this.form.Usuario === 'DonPedro' && this.form.Correo === 'DonPedro@unal.com') {
+        evt.preventDefault()
+        alert('El empleado ya esta resgistrado en la plataforma')
+      } else {
+        evt.preventDefault()
+        alert(JSON.stringify(this.form))
+        alert('Usuario Registrado')
+      }
     },
     onReset (evt) {
       evt.preventDefault()
