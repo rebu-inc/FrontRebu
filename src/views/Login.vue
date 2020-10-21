@@ -25,7 +25,6 @@
                             </b-col>
                             <b-col class="pt-2">
                                 <button type="submit" style="width:465px" class="btn btn-dark btn-lg btn-block">Ingresar</button>
-                                <router-link :to="{ name: 'Landing' }">&iquest;No tienes una cuenta? &iexcl;Registrate!</router-link>
                             </b-col>
                         </b-row>
                         <h1></h1>
@@ -80,13 +79,13 @@ export default {
       event.preventDefault()
     },
     login2 (event) {
-      if (this.username === 'admin') {
-        this.$router.push('/Landing-Administrador')
-      } else if (this.username === 'cliente') {
-      } else if (this.username === 'operador') {
+      if (this.username === 'jairo' | this.username === 'julio') {
         this.$router.push('/Landing')
+      } else if (this.username === 'cliente') {
+      } else if (this.username === 'compumundo' | this.username === 'samsung') {
+        this.$router.push('/LandingAdmin')
       } else {
-        alert('no se encontro vista')
+        alert('Error de usuario o contraseña')
       }
     }
   }

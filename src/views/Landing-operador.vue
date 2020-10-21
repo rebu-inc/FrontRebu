@@ -2,7 +2,7 @@
     <div class="row">
       <div id="nav">
           <b-button-group vertical style="width:270px" size="lg">
-            <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Juan!<br></b-button>
+            <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Operador!<br></b-button>
             <b-button variant="danger" router-link tag="li" to="/OperdorScervicios"><br><strong>Servicios</strong><br><br></b-button>
           </b-button-group>
       </div>
