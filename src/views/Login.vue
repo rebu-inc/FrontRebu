@@ -54,9 +54,8 @@ export default {
     login (event) {
       axios
         .post('http://localhost:4040/login/principal', {
-          username: this.username,
-          password: this.password,
-          crossdomain: true
+          usuario: this.username,
+          contrasena: this.password
         }, // Body
         {
           headers: {
@@ -70,24 +69,21 @@ export default {
           }
         }
         ).then(response => {
-          if (response.status !== 'Usuario O Contraseña Erroneo') {
+          console.log(response)
+          if (response.data.respuesta === 'Usuario O Contraseña Erroneo') {
             alert('Error en la autenticación')
           } else {
-            this.$router.push('/Landing')
+            if (response.data.rol === 'admin') {
+              this.$router.push('/LandingAdmin')
+            } else if (response.data.rol === 'operador') {
+              this.$router.push('/Landing')
+            } else {
+              alert('vista cliente por crear')
+            }
           }
         })
       event.preventDefault()
     },
-    login2 (event) {
-      if (this.username === 'jairo' | this.username === 'julio') {
-        this.$router.push('/Landing')
-      } else if (this.username === 'cliente') {
-      } else if (this.username === 'compumundo' | this.username === 'samsung') {
-        this.$router.push('/LandingAdmin')
-      } else {
-        alert('Error de usuario o contraseña')
-      }
-    }
   }
 }
 </script>
