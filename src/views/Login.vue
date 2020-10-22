@@ -2,7 +2,7 @@
     <b-container fluid>
         <div align="center" class="pt-5 pl-5">
             <b-card style="width:710px">
-                <form @submit="login2">
+                <form @submit="login">
                     <h3>¡Bienvenido/a!</h3>
                     <b-col class="my-4">
                         <b-row sm="9">
