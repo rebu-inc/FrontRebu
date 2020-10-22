@@ -54,9 +54,8 @@ export default {
     login (event) {
       axios
         .post('http://localhost:4040/login/principal', {
-          username: this.username,
-          password: this.password,
-          crossdomain: true
+          usuario: this.username,
+          contrasena: this.password
         }, // Body
         {
           headers: {
