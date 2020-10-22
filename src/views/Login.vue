@@ -83,7 +83,7 @@ export default {
           }
         })
       event.preventDefault()
-    },
+    }
   }
 }
 </script>
