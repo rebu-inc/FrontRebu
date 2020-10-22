@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     onSubmit (evt) {
-      if (this.form.nit === '12345' | '54321') {
+      if (this.form.nit === '12345') {
         evt.preventDefault()
         alert('Empresa Ya Registrada')
         // Trick to reset/clear native browser form validation state
