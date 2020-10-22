@@ -4,7 +4,7 @@
 
       <h3>REGISTRO</h3>
 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="pt-2">
+    <b-form action="mailto:ticketwork@gmail.com" subject = Registro body= form method = "post" onSubmit enctype="text/plain" @submit="onSubmit" @reset="onReset" v-if="show" class="pt-2">
 
       <b-form-group
        label-cols="1"
@@ -18,6 +18,7 @@
           v-model="form.nombre"
           required
           placeholder="Nombre"
+          name="Nombre"
         ></b-form-input>
       </b-form-group>
 
@@ -33,6 +34,7 @@
           v-model="form.nit"
           required
           placeholder="Nit"
+          name="Nit"
         ></b-form-input>
       </b-form-group>
 
@@ -48,6 +50,7 @@
           type="email"
           required
           placeholder="Email"
+          name="Email"
         ></b-form-input>
       </b-form-group>
 
@@ -58,18 +61,19 @@
         label-for="input-default"
         style="width:550px"
       >
-        <b-form-input
+        <b-form-input type="text"
           id="input-default"
           v-model="form.telefono"
           required
           placeholder="Teléfono"
+          name="Telefono"
         ></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-5">
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">Prestadora</b-form-checkbox>
-          <b-form-checkbox value="that">Solicitante</b-form-checkbox>
+        <b-form-checkbox-group v-model="form.checked" id= "Tipo empresa" >
+          <b-form-checkbox value="Prestadora">Prestadora</b-form-checkbox>
+          <b-form-checkbox value="Solicitante">Solicitante</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
 
@@ -96,22 +100,15 @@ export default {
   },
   methods: {
     onSubmit (evt) {
-      evt.preventDefault()
-      alert(JSON.stringify(this.form))
-    },
-    onReset (evt) {
-      evt.preventDefault()
-      // Reset our form values
-      this.form.nombre = ''
-      this.form.email = ''
-      this.form.nit = ''
-      this.form.telefono = ''
-      this.form.checked = []
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
+      if (this.form.nit === '12345') {
+        evt.preventDefault()
+        alert('Empresa Ya Registrada')
+        // Trick to reset/clear native browser form validation state
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        })
+      }
     }
   }
 }
