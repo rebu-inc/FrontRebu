@@ -8,7 +8,7 @@
       <router-link tag="li" to="/Login">login</router-link>
     </div>
     <router-view/>
-    <div id = "con">
+    <div id = "con1">
       <div id  = "log">
         <li><h1>Contactenos</h1></li>
         <li><a href="https://www.facebook.com/" target="_blank" > <img src="../assets/facebook.png" height="20px"></a></li>
@@ -69,7 +69,7 @@ li:hover{
 #li1:hover{
   background: none;
 }
-#con{
+#con1{
   background: #087589;
   position: relative;
   width: 100%;
