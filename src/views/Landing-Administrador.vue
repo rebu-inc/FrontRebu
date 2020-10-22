@@ -26,6 +26,18 @@
 </template>
 
 <script>
+export default {
+  name: 'Landing-Administrador',
+  beforeCreate () {
+    console.log('jash')
+    if (!localStorage.getItem('token-Admin')) {
+      this.$router.push('/Login')
+    }
+  },
+  beforeDestroy () {
+    localStorage.clear()
+  }
+}
 </script>
 
 <style>
