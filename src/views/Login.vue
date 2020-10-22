@@ -74,10 +74,13 @@ export default {
             alert('Error en la autenticación')
           } else {
             if (response.data.rol === 'admin') {
+              localStorage.setItem('token-Admin', response.data.access_token)
               this.$router.push('/LandingAdmin')
             } else if (response.data.rol === 'operador') {
+              localStorage.setItem('token-operador', response.data.access_token)
               this.$router.push('/Landing')
             } else {
+              localStorage.setItem('token-admin', response.data.access_token)
               alert('vista cliente por crear')
             }
           }
