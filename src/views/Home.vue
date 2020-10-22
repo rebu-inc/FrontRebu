@@ -1,5 +1,5 @@
-<template><div id="app">
-  <div id="nav">
+<template><div id="app2">
+  <div id="nav2">
       <router-link tag="li" id="li1" to="/Inicio"> <img src="../assets/ticketwork.png" height="90px" align="center"></router-link>
       <router-link tag="li" to="/QuienesSomos" >Quienes somos </router-link>
       <router-link tag="li" to="/Servicios">Servicios</router-link>
@@ -8,7 +8,7 @@
       <router-link tag="li" to="/Login">login</router-link>
     </div>
     <router-view/>
-    <div id = "con">
+    <div id = "con1">
       <div id  = "log">
         <li><h1>Contactenos</h1></li>
         <li><a href="https://www.facebook.com/" target="_blank" > <img src="../assets/facebook.png" height="20px"></a></li>
@@ -26,7 +26,7 @@
 </script>
 
 <style>
-#app {
+#app2 {
   font-family: Oswald, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,17 +34,18 @@
   color: #2c3e50;
 }
 
-#nav {
+#nav2 {
   list-style: none;
   padding: 0px;
   background: #f4e0de;
   width: 100%;
   max-width: 10000px;
-  margin: auto;
+  margin: center;
   font-size: 26px;
+  justify-content: center;
 }
 
-#nav a {
+#nav2 a {
   text-decoration: none;
   color: black;
   display: inline-block;
@@ -68,7 +69,7 @@ li:hover{
 #li1:hover{
   background: none;
 }
-#con{
+#con1{
   background: #087589;
   position: relative;
   width: 100%;

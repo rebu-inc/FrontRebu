@@ -1,5 +1,5 @@
 <template>
-  <div class="landing">
+  <div class="landingOp">
     <operador msg=" "/>
   </div>
 </template>
@@ -9,7 +9,7 @@
 import operador from '@/views/Landing-operador.vue'
 
 export default {
-  name: 'Landing',
+  name: 'LandingOp',
   components: {
     operador
   }
