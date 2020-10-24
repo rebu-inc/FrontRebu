@@ -10,11 +10,11 @@
        label-cols="1"
        label-cols-lg="4"
        label="Nombre:"
-       label-for="input-default"
+       label-for="input1"
        style="width:550px"
       >
         <b-form-input inline
-          id="input-default"
+          id="input1"
           v-model="form.nombre"
           required
           placeholder="Nombre"
@@ -25,11 +25,11 @@
        label-cols="4"
        label-cols-lg="4"
        label="Apellidos"
-       label-for="input-default"
+       label-for="input2"
        style="width:550px"
       >
         <b-form-input
-          id="input-default"
+          id="input2"
           v-model="form.Apellidos"
           required
           placeholder="Apellidos"
@@ -40,11 +40,11 @@
         label-cols="4"
         label-cols-lg="4"
         label="Clave:"
-        label-for="input-default"
+        label-for="input3"
         style="width:550px"
       >
         <b-form-input
-          id="input-default"
+          id="input3"
           v-model="form.Clave"
           required
           placeholder="Clave"
@@ -54,12 +54,13 @@
       <b-form-group
         label-cols="4"
         label-cols-lg="4"
+        type="number"
         label="Cedula:"
-        label-for="input-default"
+        label-for="input4"
         style="width:550px"
       >
         <b-form-input
-          id="input-default"
+          id="input4"
           v-model="form.Cedula"
           required
           placeholder="Cedula"
@@ -70,10 +71,10 @@
         label-cols="4"
         label-cols-lg="4"
         label="Usuario:"
-        label-for="input-default"
+        label-for="input5"
       >
         <b-form-input
-          id="input-default"
+          id="input5"
           v-model="form.Usuario"
           required
           placeholder="Usuario"
@@ -84,11 +85,11 @@
         label-cols="4"
         label-cols-lg="4"
         label="Correo:"
-        label-for="input-default"
+        label-for="input6"
         style="width:550px"
       >
         <b-form-input
-          id="input-default"
+          id="input6"
           v-model="form.Correo"
           type='email'
           required
@@ -104,6 +105,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'RegistroAdmin.vue',
   components: {},
@@ -121,17 +123,49 @@ export default {
     }
   },
   methods: {
-    onSubmit (evt) {
-      if (this.form.Usuario === 'jairo') {
-        evt.preventDefault()
-        alert('Usuario Registrado')
-      } else if (this.form.Usuario === 'julio') {
-        evt.preventDefault()
-        alert('Usuario Registrado')
-      } else {
-        evt.preventDefault()
-        alert('Usuario Ya Existe')
-      }
+    onSubmit (event) {
+      axios
+        .post('http://localhost:4040/registro/reg_empleado', {
+          nombre: this.form.nombre,
+          apellidos: this.form.Apellidos,
+          clave: this.form.Clave,
+          cedula: this.form.Cedula,
+          usuario: this.form.Usuario,
+          rol: 'operador',
+          correo: this.form.Correo
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          params: {
+          },
+          auth: {
+            nombre: 'soft-eng-ii',
+            Apellidos: 'soft-eng-ii',
+            Clave: 'secret',
+            Cedula: 'secret',
+            Usuario: 'soft-eng-ii',
+            Correo: 'soft-eng-ii'
+          }
+        }
+        ).then(response => {
+          console.log(response)
+          if (response.data.respuesta === 'Usuario Ya Existe') {
+            alert('Error en registro, la cédula ingresada ya esta registrada')
+          } else {
+            localStorage.setItem('token-registro', response.data.access_token)
+            alert('Usuario Registrado')
+            this.onReset(event)
+          }
+        }).catch(error => {
+          if (error.response.status === 500) {
+            alert('La cedula debe ser numérica, no ingrese letras')
+          } else {
+            alert('Error en la aplicación')
+          }
+        })
+      event.preventDefault()
     },
     onReset (evt) {
       evt.preventDefault()
