@@ -2,7 +2,7 @@
     <b-container fluid>
         <div align="center" class="pt-5 pl-5">
             <b-card style="width:710px">
-                <form @submit="login2">
+                <form @submit="login">
                     <h3>¡Bienvenido/a!</h3>
                     <b-col class="my-4">
                         <b-row sm="9">
@@ -54,9 +54,8 @@ export default {
     login (event) {
       axios
         .post('http://localhost:4040/login/principal', {
-          username: this.username,
-          password: this.password,
-          crossdomain: true
+          usuario: this.username,
+          contrasena: this.password
         }, // Body
         {
           headers: {
@@ -70,23 +69,23 @@ export default {
           }
         }
         ).then(response => {
-          if (response.status !== 'Usuario O Contraseña Erroneo') {
+          console.log(response)
+          if (response.data.respuesta === 'Usuario O Contraseña Erroneo') {
             alert('Error en la autenticación')
           } else {
-            this.$router.push('/Landing')
+            if (response.data.rol === 'admin') {
+              localStorage.setItem('token-Admin', response.data.access_token)
+              this.$router.push('/LandingAdmin')
+            } else if (response.data.rol === 'operador') {
+              localStorage.setItem('token-operador', response.data.access_token)
+              this.$router.push('/Landing')
+            } else {
+              localStorage.setItem('token-admin', response.data.access_token)
+              alert('vista cliente por crear')
+            }
           }
         })
       event.preventDefault()
-    },
-    login2 (event) {
-      if (this.username === 'jairo' | this.username === 'julio') {
-        this.$router.push('/Landing')
-      } else if (this.username === 'cliente') {
-      } else if (this.username === 'compumundo' | this.username === 'samsung') {
-        this.$router.push('/LandingAdmin')
-      } else {
-        alert('Error de usuario o contraseña')
-      }
     }
   }
 }
