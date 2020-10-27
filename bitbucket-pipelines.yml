@@ -19,6 +19,6 @@ pipelines:
                 AWS_ACCESS_KEY_ID: "AKIATAIRXHBURAK2QAZ3"
                 AWS_SECRET_ACCESS_KEY: "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"
                 AWS_DEFAULT_REGION: "us-east-2"
-                S3_BUCKET: "ticketwork-frontend"
+                S3_BUCKET: "ticketwork.de"
                 ACL: "public-read"
                 LOCAL_PATH: "dist"
