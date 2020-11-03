@@ -112,12 +112,12 @@
       <div class="accordion" role="tablist" >
         <b-card no-body class="mb-1" v-for="(i, index) in items" :key="index">
           <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle="i.mensaje" variant="info">{{i.mensaje}}</b-button>
+            <b-button block v-b-toggle="i.id" variant="info">{{i.Empresa}} {{i.Servicio}} {{i.Fecha}}</b-button>
           </b-card-header>
-          <b-collapse :id="i.mensaje" visible accordion="my-accordion" role="tabpanel">
+          <b-collapse :id="i.id" visible accordion="my-accordion" role="tabpanel">
             <b-card-body>
-              <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
-              <b-card-text>{{ text }}</b-card-text>
+              <b-card-text>{{i.id}}</b-card-text>
+              <b-card-text>{{ i.mensaje }}</b-card-text>
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -140,9 +140,9 @@ export default {
       showServ: true,
       showCrea: false,
       items: [
-        { mensaje: 'Foo' },
-        { mensaje: 'Bar' },
-        { mensaje: 'Baajshr' }
+        { Empresa: 'Foo', Servicio: 'limpiar', Fecha: '12 / 03 / 2020', mensaje: 'ajshgajsh', id: '12345' },
+        { Empresa: 'Bar', Servicio: 'limpiar', Fecha: '12 / 03 / 2020', mensaje: 'asjghajsh', id: '12346' },
+        { Empresa: 'Baajshr', Servicio: 'limpiar', Fecha: '12 / 03 / 2020', mensaje: 'ashgajs', id: '12347' }
       ]
     }
   },
@@ -194,6 +194,10 @@ export default {
   background: white;
   color: black;
   border-color: #087589;
+}
+.row{
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 </style>
