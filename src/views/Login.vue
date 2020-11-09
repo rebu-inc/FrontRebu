@@ -81,7 +81,7 @@ export default {
               this.$router.push('/Landing')
             } else {
               localStorage.setItem('token-admin', response.data.access_token)
-              alert('vista cliente por crear')
+              this.$router.push('/Landing-Cliente')
             }
           }
         })
