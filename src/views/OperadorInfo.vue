@@ -16,8 +16,8 @@
         <b-form-input inline
           id="input1"
           v-model="form.nombre"
-          required
-          placeholder="Nombre"
+          disabled="disabled"
+          placeholder="juanca"
         ></b-form-input>
       </b-form-group>
 
@@ -31,8 +31,8 @@
         <b-form-input
           id="input2"
           v-model="form.Apellidos"
-          required
-          placeholder="Apellidos"
+          disabled="disabled"
+          placeholder="aguirre"
         ></b-form-input>
       </b-form-group>
 
@@ -46,8 +46,8 @@
         <b-form-input
           id="input3"
           v-model="form.Clave"
-          required
-          placeholder="Clave"
+          disabled="disabled"
+          placeholder="qwerty"
         ></b-form-input>
       </b-form-group>
 
@@ -62,8 +62,8 @@
         <b-form-input
           id="input4"
           v-model="form.Cedula"
-          required
-          placeholder="Cedula"
+          disabled="disabled"
+          placeholder="1"
         ></b-form-input>
       </b-form-group>
 
@@ -76,8 +76,8 @@
         <b-form-input
           id="input5"
           v-model="form.Usuario"
-          required
-          placeholder="Usuario"
+          disabled="disabled"
+          placeholder="Juank"
         ></b-form-input>
       </b-form-group>
 
@@ -92,8 +92,8 @@
           id="input6"
           v-model="form.Correo"
           type='email'
-          required
-          placeholder="Correo"
+          disabled="disabled"
+          placeholder="sa@yh.com"
         ></b-form-input>
       </b-form-group>
     </b-form>
@@ -128,7 +128,7 @@ export default {
   methods: {
     onSubmit (event) {
       axios
-        .post('http://localhost:4040/registro/reg_empleado', {
+        .post('http://localhost:4040/empleado/info/1', {
           nombre: this.form.nombre,
           apellidos: this.form.Apellidos,
           clave: this.form.Clave,
