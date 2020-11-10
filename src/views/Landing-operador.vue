@@ -4,16 +4,27 @@
           <b-button-group vertical style="width:270px" size="lg">
             <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Operador!<br></b-button>
             <b-button variant="danger" router-link tag="li" to="/OperdorScervicios"><br><strong>Servicios</strong><br><br></b-button>
+            <b-button variant="danger" router-link tag="li" to="/OperadorInfo"><br><strong>Información</strong><br><br></b-button>
           </b-button-group>
       </div>
         <div class="col" style="width:10px">
-            <div id="nav1">
-              <b-input-group prepend="Buscar" style="width:1000px">
-                <b-form-input></b-form-input>
-                <b-input-group-append>
-                  <b-button variant="info">ir</b-button>
-                </b-input-group-append>
-              </b-input-group>
+            <div id="nav1" class="row">
+              <div class="col-md-10">
+                <b-input-group prepend="Buscar" >
+                  <b-form-input></b-form-input>
+                  <b-input-group-append>
+                    <b-button variant="info">ir</b-button>
+                  </b-input-group-append>
+                </b-input-group>
+              </div>
+              <div class="col-md-2">
+                <div class="row">
+                  <b-avatar  button @click="ver" variant="info"></b-avatar>
+                </div>
+                <b-list-group v-if="menu" id="menu-salir">
+                  <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
+                </b-list-group>
+              </div>
             </div>
           <router-view/>
         </div>
@@ -23,15 +34,30 @@
 
 <script>
 export default {
-  name: 'Landing-Administrador',
+  name: 'Landing-Operador',
+  data () {
+    return {
+      menu: false
+    }
+  },
   beforeCreate () {
     console.log('jash')
     if (!localStorage.getItem('token-operador')) {
       this.$router.push('/Login')
     }
   },
-  beforeDestroy () {
-    localStorage.clear()
+  methods: {
+    onClick () {
+      localStorage.clear()
+      this.$router.push('/Login')
+    },
+    ver () {
+      if (this.menu) {
+        this.menu = false
+      } else {
+        this.menu = true
+      }
+    }
   }
 }
 </script>

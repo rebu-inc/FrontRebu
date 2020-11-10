@@ -9,13 +9,23 @@
           </b-button-group>
       </div>
         <div class="col" style="width:10px">
-            <div id="nav1">
-              <b-input-group prepend="Buscar" style="width:1000px">
-                <b-form-input></b-form-input>
-                <b-input-group-append>
-                  <b-button variant="info">ir</b-button>
-                </b-input-group-append>
-              </b-input-group>
+            <div id="nav1" class="row">
+              <div class="col-md-10">
+                <b-input-group prepend="Buscar" >
+                  <b-form-input></b-form-input>
+                  <b-input-group-append>
+                    <b-button variant="info">ir</b-button>
+                  </b-input-group-append>
+                </b-input-group>
+              </div>
+              <div class="col-md-2">
+                <div class="row">
+                  <b-avatar  button @click="ver" variant="info"></b-avatar>
+                </div>
+                <b-list-group v-if="menu" id="menu-salir">
+                  <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
+                </b-list-group>
+              </div>
             </div>
           <router-view/>
         </div>
@@ -24,6 +34,27 @@
 </template>
 
 <script>
+export default {
+  name: 'Landing-Cliente',
+  data () {
+    return {
+      menu: false
+    }
+  },
+  methods: {
+    onClick () {
+      localStorage.clear()
+      this.$router.push('/Login')
+    },
+    ver () {
+      if (this.menu) {
+        this.menu = false
+      } else {
+        this.menu = true
+      }
+    }
+  }
+}
 </script>
 
 <style>
@@ -46,7 +77,7 @@
   list-style: none;
   padding:15px;
   background: #7DADE6;
-  width:220%;
+  width:100%;
   max-width: 10000px;
 }
 

@@ -50,11 +50,11 @@ export default {
     },
     onSubmit (event) {
       axios
-        .post(localStorage.setItem('url') + '/solicitud/servicio/', {
-          nitEmpresaSolicitando: this.form.nitEmpresaSolicitando,
-          nitEmpresaPrestadora: this.form.nitEmpresaPrestadora,
-          idServicio: this.form.idServicio,
-          descripcion: this.form.descripcion
+        .post(localStorage.getItem('url') + '/solicitud/servicio/', {
+          nitEmpresaSolicitando: localStorage.getItem('nitES'),
+          nitEmpresaPrestadora: this.tabla.empres,
+          idServicio: this.tabla.idservicios,
+          descripcion: this.tabla.descripcion
         },
         {
           headers: {
@@ -65,10 +65,9 @@ export default {
         }
         ).then(response => {
           console.log(response)
-          if (response.data.respuesta === 'Servicio no existe') {
+          if (response.data.respuesta === 'Solicitud Fallida') {
             alert('Solicitud Fallida')
           } else {
-            localStorage.setItem('token-servicio', response.data.access_token)
             alert('Solicitud Exitosa')
           }
         })
@@ -76,7 +75,7 @@ export default {
     },
     actualizar (event) {
       axios
-        .get(localStorage.setItem('url') + '/empleado/cat_serv', {
+        .get(localStorage.getItem('url') + '/empleado/cat_serv', {
         },
         {
           headers: {
@@ -86,7 +85,7 @@ export default {
         ).then(response => {
           this.tabla = response.data
           console.log(response)
-          alert('Solicitud Exitosaaaaaaaaaaaaaaaaaaa')
+          alert('Actualizado')
         })
       event.preventDefault()
     }
