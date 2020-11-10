@@ -6,7 +6,6 @@ import LandingAdmin from '../views/LandingAdmin.vue'
 import Landingcliente from '../views/Landingcliente.vue'
 
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/',
