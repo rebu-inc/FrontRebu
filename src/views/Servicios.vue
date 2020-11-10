@@ -18,6 +18,7 @@
 </template>
 
 <script>
+console.log(localStorage.getItem('hola'))
 export default {
   name: 'servicio'
 }

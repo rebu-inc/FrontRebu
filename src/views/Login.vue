@@ -53,7 +53,7 @@ export default {
   methods: {
     login (event) {
       axios
-        .post('http://localhost:4040/login/principal', {
+        .post(localStorage.getItem('url') + '/login/principal', {
           usuario: this.username,
           contrasena: this.password
         }, // Body
@@ -79,9 +79,9 @@ export default {
             } else if (response.data.rol === 'operador') {
               localStorage.setItem('token-operador', response.data.access_token)
               this.$router.push('/Landing')
-            } else {
-              localStorage.setItem('token-admin', response.data.access_token)
-              alert('vista cliente por crear')
+            } else if (response.data.rol === 'cliente') {
+              localStorage.setItem('token-cliente', response.data.access_token)
+              this.$router.push('/LandingCliente')
             }
           }
         })

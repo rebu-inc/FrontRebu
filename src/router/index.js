@@ -3,9 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Landing from '../views/Landing.vue'
 import LandingAdmin from '../views/LandingAdmin.vue'
+import Landingcliente from '../views/Landingcliente.vue'
 
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/',
@@ -13,7 +13,7 @@ const routes = [
     component: Home,
     children: [
       {
-        path: '/Inicio',
+        path: '/',
         name: 'Inicio',
         component: () => import('../views/Inicio.vue')
       },
@@ -53,6 +53,11 @@ const routes = [
     path: '/LandingAdmin',
     name: 'LandingAdmin',
     component: LandingAdmin
+  },
+  {
+    path: '/Landingcliente',
+    name: 'Landingcliente',
+    component: Landingcliente
   },
   {
     path: '/Landing-Administrador',
@@ -112,6 +117,18 @@ const routes = [
         path: '/OperadorActualizar',
         name: 'OOperadorActualizar',
         component: () => import('../views/OperadorActualizar.vue')
+      }
+    ]
+  },
+  {
+    path: '/Landing-Cliente',
+    name: 'Landing-Cliente',
+    component: () => import('../views/Landing-Cliente.vue'),
+    children: [
+      {
+        path: '/OperdorScervicios',
+        name: 'OperdorServicios',
+        component: () => import('../views/OperdorServicios.vue')
       }
     ]
   }
