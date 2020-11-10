@@ -104,9 +104,19 @@ const routes = [
     component: () => import('../views/Landing-operador.vue'),
     children: [
       {
+        path: '/OperadorInfo',
+        name: 'OperadorInfo',
+        component: () => import('../views/OperadorInfo.vue')
+      },
+      {
         path: '/OperdorScervicios',
         name: 'OperdorServicios',
         component: () => import('../views/OperdorServicios.vue')
+      },
+      {
+        path: '/OperadorActualizar',
+        name: 'OOperadorActualizar',
+        component: () => import('../views/OperadorActualizar.vue')
       }
     ]
   },

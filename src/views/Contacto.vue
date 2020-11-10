@@ -1,5 +1,7 @@
 <template>
   <div class="Contacto">
+    <br>
+    <br>
     <div id="contacto">
       <h1>Let´s work together</h1>
       <div id="img-tex">
