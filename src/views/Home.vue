@@ -23,6 +23,7 @@
 </template>
 
 <script>
+localStorage.setItem('url', 'http://localhost:4040')
 </script>
 
 <style>

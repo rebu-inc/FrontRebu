@@ -53,7 +53,7 @@ export default {
   methods: {
     login (event) {
       axios
-        .post('http://localhost:4040/login/principal', {
+        .post(localStorage.getItem('url') + '/login/principal', {
           usuario: this.username,
           contrasena: this.password
         }, // Body
