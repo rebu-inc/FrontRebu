@@ -1,7 +1,7 @@
 <template>
   <div class="Servicios">
     <div class="row" id="botones" >
-       <b-button @click="actualizar" id="actualizar" variant="danger">Actualizar</b-button>
+       <b-button @click="actualizar" v-if="showbotton" id="actualizar" variant="danger">Actualizar</b-button>
        <b-button @click="crear" id="Crear" variant="danger">Crear</b-button>
     </div>
     <div align="center" class="pt-5 pl-5" id="nuevoServicio" v-if="showCrea">
@@ -37,7 +37,7 @@
             max-rows="6"
           ></b-form-textarea>
         </b-form-group>
-        <b-button  @click="submit" variant="primary">Submit</b-button>
+        <b-button  @click="crear_servicio" variant="primary">Submit</b-button>
         <b-button @click="Reset" class="m-2" variant="danger">Reset</b-button>
         <b-button  @click="cerrar" variant="primary">Cancelar</b-button>
       </b-form>
@@ -69,10 +69,12 @@ export default {
     return {
       form: {
         nombre: '',
-        Descripcion: ''
+        Descripcion: '',
+        idPersona: localStorage.getItem('IDpersona')
       },
-      showServ: true,
-      showCrea: false,
+      showServ: false,
+      showbotton: false,
+      showCrea: true,
       items: [
         { Empresa: 'Foo', Servicio: 'limpiar', Informacion: 'aksja kasj aksj hakajs kajs kasj kasj aksj aksj aksj ', id: '12345' },
         { Empresa: 'Bar', Servicio: 'limpiar', Informacion: 'asjghajsh', id: '12346' },
@@ -88,7 +90,6 @@ export default {
     },
     submit (event) {
       alert('creado')
-      this.Reset(event)
     },
     crear (event) {
       this.showServ = false
@@ -110,11 +111,12 @@ export default {
       })
     },
     crear_servicio () {
+      console.log(localStorage.getItem('IDpersona'))
       Axios
         .post(localStorage.getItem('url') + '/registro/reg_serv', {
           descripcion: this.Descripcion,
           nombre: this.nombre,
-          idpersona: this.idpersona
+          idpersona: localStorage.getItem('IDpersona')
         }, // Body
         {
           headers: {
@@ -127,6 +129,7 @@ export default {
           console.log(response)
         })
       event.preventDefault()
+      this.Reset(event)
     }
   }
 }
