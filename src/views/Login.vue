@@ -72,6 +72,7 @@ export default {
           console.log(response)
           localStorage.setItem('IDpersona', response.data.idPersona)
           localStorage.setItem('IDEmpresa', response.data.idEmpresa)
+          localStorage.setItem('nitES', response.data.idEmpresa)
           if (response.data.respuesta === 'Usuario O Contraseña Erroneo') {
             alert('Error en la autenticación')
           } else {
