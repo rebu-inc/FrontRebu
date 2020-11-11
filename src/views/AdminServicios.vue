@@ -114,8 +114,8 @@ export default {
       console.log(localStorage.getItem('IDpersona'))
       Axios
         .post(localStorage.getItem('url') + '/registro/reg_serv', {
-          descripcion: this.Descripcion,
-          nombre: this.nombre,
+          descripcion: this.form.Descripcion,
+          nombre: this.form.nombre,
           idpersona: localStorage.getItem('IDpersona')
         }, // Body
         {
