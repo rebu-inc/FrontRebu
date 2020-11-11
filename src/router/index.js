@@ -131,6 +131,18 @@ const routes = [
         component: () => import('../views/OperdorServicios.vue')
       }
     ]
+  },
+  {
+    path: '/Landing-Cliente',
+    name: 'Landing-Cliente',
+    component: () => import('../views/Landing-Cliente.vue'),
+    children: [
+      {
+        path: '/ClienteServicios',
+        name: 'ClienteServicios',
+        component: () => import('../views/ClienteServicios.vue')
+      }
+    ]
   }
 ]
 

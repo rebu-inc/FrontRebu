@@ -70,6 +70,7 @@ export default {
         }
         ).then(response => {
           console.log(response)
+          localStorage.setItem('nitES', response.data.idEmpresa)
           if (response.data.respuesta === 'Usuario O Contraseña Erroneo') {
             alert('Error en la autenticación')
           } else {
