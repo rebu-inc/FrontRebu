@@ -10,7 +10,7 @@
                                 <img src="../assets/Usuario.png" style="width:50px" alt="holi">
                             </b-col>
                             <b-col >
-                                <b-form-input style="width:550px" id="input-none" :state="null" placeholder="e-mail"
+                                <b-form-input style="width:550px" id="input-none" :state="null" placeholder="Usuario"
                                  class="form-control form-control-lg" v-model="username" required="" ></b-form-input>
                             </b-col>
                         </b-row>
