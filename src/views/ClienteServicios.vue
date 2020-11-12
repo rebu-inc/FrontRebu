@@ -3,17 +3,19 @@
   <div class="Servicios">
     <h1 align="center">Servicios prestados</h1>
     <div heigh="50%">
-        <b-list-group v-for="(dat,index) in tabla" :key="index">
-  <b-list-group-item  :id="dat.nombre" @click="showModal" href="#">{{dat.nombre}}</b-list-group-item>
-</b-list-group>
-         <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
-        <b-modal ref="my-modal">
-      <div class="d-block text-center">
-      </div>
-      <b-button type ='submit' class="mt-2" variant="outline-warning" block @click="toggleModal">Solicitar Servicio</b-button>
-    </b-modal>
+      <b-list-group v-for="(dat,index) in tabla" :key="index">
+         <b-list-group-item :id="dat.nombre" @click="showModal(index)" href="#">{{dat.nombre}}{{index}}</b-list-group-item>
+      </b-list-group>
+
+      <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
+
+      <b-modal ref="my-modal">
+        <div class="d-block text-center">
+        </div>
+        <b-button type ='submit' class="mt-2" variant="outline-warning" block @click="toggleModal">Solicitar Servicio</b-button>
+      </b-modal>
     </div>
-    </div>
+  </div>
 
 </template>
 <script>
@@ -23,6 +25,7 @@ export default {
   components: {},
   data () {
     return {
+      i: 0,
       form: {
         nitEmpresaSolicitando: 0,
         nitEmpresaPrestadora: 0,
@@ -35,7 +38,10 @@ export default {
   },
 
   methods: {
-    showModal () {
+    showModal (index) {
+      console.log(index)
+      this.i = index
+      console.log(this.i)
       this.$refs['my-modal'].show()
     },
     hideModal () {
@@ -49,12 +55,16 @@ export default {
       this.actualizar(event)
     },
     onSubmit (event) {
+      console.log(parseInt(localStorage.getItem('nitES'), 10))
+      console.log(this.tabla[this.i].empres)
+      console.log(this.tabla[this.i].idservicios)
+      console.log(this.tabla[this.i].descripcion)
       axios
         .post(localStorage.getItem('url') + '/solicitud/servicio/', {
-          nitEmpresaSolicitando: localStorage.getItem('nitES'),
-          nitEmpresaPrestadora: this.tabla.empres,
-          idServicio: this.tabla.idservicios,
-          descripcion: this.tabla.descripcion
+          nitEmpresaSolicitando: parseInt(localStorage.getItem('nitES'), 10),
+          nitEmpresaPrestadora: this.tabla[this.i].empres,
+          idServicio: this.tabla[this.i].idservicios,
+          descripcion: this.tabla[this.i].descripcion
         },
         {
           headers: {
