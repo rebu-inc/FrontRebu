@@ -44,7 +44,7 @@ export default {
   methods: {
     onClick () {
       localStorage.clear()
-      this.$router.push('/Login')
+      this.$router.push('Login')
     },
     ver () {
       if (this.menu) {
