@@ -39,7 +39,7 @@
         </b-form-group>
         <b-button  @click="crear_servicio" variant="primary">Submit</b-button>
         <b-button @click="Reset" class="m-2" variant="danger">Reset</b-button>
-        <b-button  @click="cerrar" variant="primary">Cancelar</b-button>
+        <b-button  @click="Reset" variant="primary">Cancelar</b-button>
       </b-form>
     </b-card>
     </div>
@@ -111,7 +111,6 @@ export default {
       })
     },
     crear_servicio () {
-      console.log(localStorage.getItem('IDpersona'))
       Axios
         .post(localStorage.getItem('url') + '/registro/reg_serv', {
           descripcion: this.form.Descripcion,
@@ -126,6 +125,11 @@ export default {
           }
         }
         ).then(response => {
+          if (response.status === 200) {
+            alert('Servicio creado')
+          } else {
+            alert('Servicio No creado')
+          }
           console.log(response)
         })
       event.preventDefault()
