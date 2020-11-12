@@ -4,8 +4,8 @@
           <b-button-group vertical style="width:270px" size="lg">
             <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Cliente!<br></b-button>
             <b-button variant="danger" router-link tag="li" to="/ClienteServicios"><br><strong>Servicios</strong><br><br></b-button>
-            <b-button variant="danger" router-link tag="li" to="/AdminOperadores"><br><strong>Tickets</strong><br><br></b-button>
-            <b-button variant="danger" router-link tag="li" to="/AdminTickets"><br><strong>Quejas y reclamos</strong><br><br></b-button>
+            <b-button variant="danger" router-link tag="li" to=#><br><strong>Tickets</strong><br><br></b-button>
+            <b-button variant="danger" router-link tag="li" to=#><br><strong>Quejas y reclamos</strong><br><br></b-button>
           </b-button-group>
       </div>
         <div class="col" style="width:10px">
