@@ -1,7 +1,19 @@
 <template>
   <div class="Servicios">
+    <div>
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        :variant= this.tipe
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{mensaje}} ...
+      </b-alert>
+    </div>
+
     <div class="row" id="botones" >
-       <b-button @click="actualizar" v-if="showbotton" id="actualizar" variant="danger">Actualizar</b-button>
+       <b-button @click="actualizar" id="actualizar" variant="danger">Actualizar</b-button>
        <b-button @click="crear" id="Crear" variant="danger">Crear</b-button>
     </div>
     <div align="center" class="pt-5 pl-5" id="nuevoServicio" v-if="showCrea">
@@ -39,7 +51,7 @@
         </b-form-group>
         <b-button  @click="crear_servicio" variant="primary">Submit</b-button>
         <b-button @click="Reset" class="m-2" variant="danger">Reset</b-button>
-        <b-button  @click="Reset" variant="primary">Cancelar</b-button>
+        <b-button  @click="cerrar" variant="primary">Cancelar</b-button>
       </b-form>
     </b-card>
     </div>
@@ -48,12 +60,12 @@
       <div class="accordion" role="tablist" id="acord" >
         <b-card no-body class="mb-1" v-for="(i, index) in items" :key="index">
           <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle="i.id" variant="info">{{i.Empresa}} {{i.Servicio}}</b-button>
+            <b-button block v-b-toggle="i.idservicios" variant="info">{{i.nombre}}</b-button>
           </b-card-header>
-          <b-collapse :id="i.id" visible accordion="my-accordion" role="tabpanel">
+          <b-collapse :id="i.idservicios" visible accordion="my-accordion" role="tabpanel">
             <b-card-body>
-              <b-card-text>{{i.id}}</b-card-text>
-              <b-card-text>{{ i.Informacion }}</b-card-text>
+              <b-card-text>Id: {{i.idservicios}}</b-card-text>
+              <b-card-text>Descripcion: {{ i.descripcion }}</b-card-text>
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -72,13 +84,16 @@ export default {
         Descripcion: '',
         idPersona: localStorage.getItem('IDpersona')
       },
-      showServ: false,
-      showbotton: false,
-      showCrea: true,
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      tipe: '',
+      mensaje: '',
+      showServ: true,
+      showCrea: false,
       items: [
-        { Empresa: 'Foo', Servicio: 'limpiar', Informacion: 'aksja kasj aksj hakajs kajs kasj kasj aksj aksj aksj ', id: '12345' },
-        { Empresa: 'Bar', Servicio: 'limpiar', Informacion: 'asjghajsh', id: '12346' },
-        { Empresa: 'Baajshr', Servicio: 'limpiar', Informacion: 'ashgajs', id: '12347' }
+        { Empresa: 'Foo', nombre: 'limpiar', descripcion: 'aksja kasj aksj hakajs kajs kasj kasj aksj aksj aksj ', idservicios: '12345' },
+        { Empresa: 'Bar', nombre: 'limpiar', descripcion: 'asjghajsh', idservicios: '12346' },
+        { Empresa: 'Baajshr', nombre: 'limpiar', descripcion: 'ashgajs', idservicios: '12347' }
       ]
     }
   },
@@ -86,7 +101,23 @@ export default {
     actualizar (event) {
       this.showServ = true
       this.showCrea = false
-      alert('actualizo')
+      Axios.post(localStorage.getItem('url') + '/empleado/serv_empresa/' + localStorage.getItem('IDEmpresa')
+      ).then(response => {
+        if (response.status === 200) {
+          console.log(response)
+          this.form = response.data
+        } else {
+          this.showAlert()
+        }
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+        if (error.response === 500) {
+          this.showAlert('warning', error.response.data.error)
+        } else {
+          this.showAlert('warning', error.response.data.error)
+        }
+      })
     },
     submit (event) {
       alert('creado')
@@ -126,14 +157,29 @@ export default {
         }
         ).then(response => {
           if (response.status === 200) {
-            alert('Servicio creado')
+            this.showAlert('success', 'el servicoo fue creado')
           } else {
-            alert('Servicio No creado')
+            this.showAlert()
           }
           console.log(response)
+        }).catch(error => {
+          console.log(error.response.data.error)
+          if (error.response === 500) {
+            this.showAlert('warning', error.response.data.error)
+          } else {
+            this.showAlert('warning', error.response.data.error)
+          }
         })
       event.preventDefault()
       this.Reset(event)
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert (tipo, mensaje) {
+      this.tipe = tipo
+      this.mensaje = mensaje
+      this.dismissCountDown = this.dismissSecs
     }
   }
 }

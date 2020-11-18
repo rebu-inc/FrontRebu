@@ -78,13 +78,19 @@ export default {
           } else {
             if (response.data.rol === 'admin') {
               localStorage.setItem('token-Admin', response.data.access_token)
-              this.$router.push('/LandingAdmin')
+              this.username = ''
+              this.password = ''
+              this.$router.push('LandingAdmin')
             } else if (response.data.rol === 'operador') {
+              this.username = ''
+              this.password = ''
               localStorage.setItem('token-operador', response.data.access_token)
-              this.$router.push('/Landing')
+              this.$router.push('Landing')
             } else if (response.data.rol === 'cliente') {
+              this.username = ''
+              this.password = ''
               localStorage.setItem('token-cliente', response.data.access_token)
-              this.$router.push('/LandingCliente')
+              this.$router.push('LandingCliente')
             }
           }
         })
