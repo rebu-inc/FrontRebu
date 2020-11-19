@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     onClick () {
-      localStorage.clear()
+      localStorage.removeItem('token-operador')
       this.$router.push('Login')
     },
     ver () {

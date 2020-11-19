@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     onClick () {
-      localStorage.clear()
+      localStorage.removeItem('token-cliente')
       this.$router.push('Login')
     },
     ver () {
