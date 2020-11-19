@@ -60,9 +60,9 @@
       <div class="accordion" role="tablist" id="acord" >
         <b-card no-body class="mb-1" v-for="(i, index) in items" :key="index">
           <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle="i.idservicios" variant="info">{{i.nombre}}</b-button>
+            <b-button block v-b-toggle="i.idservicios.toString()" variant="info">{{i.nombre}}</b-button>
           </b-card-header>
-          <b-collapse :id="i.idservicios" visible accordion="my-accordion" role="tabpanel">
+          <b-collapse :id="i.idservicios.toString()" visible accordion="my-accordion" role="tabpanel">
             <b-card-body>
               <b-card-text>Id: {{i.idservicios}}</b-card-text>
               <b-card-text>Descripcion: {{ i.descripcion }}</b-card-text>
@@ -90,11 +90,7 @@ export default {
       mensaje: '',
       showServ: true,
       showCrea: false,
-      items: [
-        { Empresa: 'Foo', nombre: 'limpiar', descripcion: 'aksja kasj aksj hakajs kajs kasj kasj aksj aksj aksj ', idservicios: '12345' },
-        { Empresa: 'Bar', nombre: 'limpiar', descripcion: 'asjghajsh', idservicios: '12346' },
-        { Empresa: 'Baajshr', nombre: 'limpiar', descripcion: 'ashgajs', idservicios: '12347' }
-      ]
+      items: []
     }
   },
   methods: {
@@ -104,8 +100,8 @@ export default {
       Axios.post(localStorage.getItem('url') + '/empleado/serv_empresa/' + localStorage.getItem('IDEmpresa')
       ).then(response => {
         if (response.status === 200) {
-          console.log(response)
-          this.form = response.data
+          this.showAlert('success', 'Fue actualizado el listado de eventos')
+          this.items = response.data
         } else {
           this.showAlert()
         }
@@ -157,7 +153,7 @@ export default {
         }
         ).then(response => {
           if (response.status === 200) {
-            this.showAlert('success', 'el servicoo fue creado')
+            this.showAlert('success', 'el servicio fue creado')
           } else {
             this.showAlert()
           }
@@ -181,6 +177,9 @@ export default {
       this.mensaje = mensaje
       this.dismissCountDown = this.dismissSecs
     }
+  },
+  mounted () {
+    this.actualizar()
   }
 }
 

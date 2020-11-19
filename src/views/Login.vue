@@ -4,13 +4,24 @@
             <b-card style="width:710px">
                 <form @submit="login">
                     <h3>¡Bienvenido/a!</h3>
+                    <div>
+                      <b-alert
+                        :show="dismissCountDown"
+                        dismissible
+                        :variant= this.tipe
+                        @dismissed="dismissCountDown=0"
+                        @dismiss-count-down="countDownChanged"
+                      >
+                        {{mensaje}} ...
+                      </b-alert>
+                    </div>
                     <b-col class="my-4">
                         <b-row sm="9">
                             <b-col align-self="start">
                                 <img src="../assets/Usuario.png" style="width:50px" alt="holi">
                             </b-col>
                             <b-col >
-                                <b-form-input style="width:550px" id="input-none" :state="null" placeholder="Usuario"
+                                <b-form-input style="width:550px" id="input-user" :state="null" placeholder="Usuario"
                                  class="form-control form-control-lg" v-model="username" required="" ></b-form-input>
                             </b-col>
                         </b-row>
@@ -20,13 +31,14 @@
                                 <img src="../assets/Contraseña.png" style="width:50px" alt="holi">
                             </b-col>
                             <b-col>
-                                <b-form-input style="width:550px" id="input-none" :state="null" placeholder="Contraseña"
+                                <b-form-input style="width:550px" id="input-contrasena" :state="null" placeholder="Contraseña"
                                 type="password" class="form-control form-control-lg" v-model="password" required></b-form-input>
                             </b-col>
                             <b-col class="pt-2">
                                 <button type="submit" style="width:465px" class="btn btn-dark btn-lg btn-block">Ingresar</button>
                             </b-col>
                         </b-row>
+
                         <h1></h1>
                         <b-row sm="3" class="pl-5">
                             <p class="forgot-password text-center" style="width:290px" >
@@ -46,6 +58,10 @@ export default {
   components: {},
   data () {
     return {
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      tipe: '',
+      mensaje: '',
       username: '',
       password: ''
     }
@@ -69,12 +85,11 @@ export default {
           }
         }
         ).then(response => {
-          console.log(response)
-          localStorage.setItem('IDpersona', response.data.idPersona)
+          localStorage.setItem('IDpersona', response.data.idPersonas)
           localStorage.setItem('IDEmpresa', response.data.idEmpresa)
           localStorage.setItem('nitES', response.data.idEmpresa)
           if (response.data.respuesta === 'Usuario O Contraseña Erroneo') {
-            alert('Error en la autenticación')
+            this.showAlert('danger', response.data.respuesta)
           } else {
             if (response.data.rol === 'admin') {
               localStorage.setItem('token-Admin', response.data.access_token)
@@ -95,6 +110,14 @@ export default {
           }
         })
       event.preventDefault()
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert (tipo, mensaje) {
+      this.tipe = tipo
+      this.mensaje = mensaje
+      this.dismissCountDown = this.dismissSecs
     }
   }
 }

@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     onClick () {
-      localStorage.clear()
+      localStorage.removeItem('token-Admin')
       this.$router.push('/Login')
     },
     ver () {
