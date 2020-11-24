@@ -1,10 +1,21 @@
 <template>
   <div align="center" class="pt-5 pl-5" id="RegistroAdmin">
+    <div>
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        :variant= this.tipe
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{mensaje}}
+      </b-alert>
+    </div>
     <b-card style="width:700px">
 
       <h3>Mi información</h3>
 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="pt-2">
+    <b-form v-if="show" class="pt-2">
 
       <b-form-group
        label-cols="1"
@@ -16,8 +27,7 @@
         <b-form-input inline
           id="input1"
           v-model="form.nombre"
-          disabled="disabled"
-          placeholder="juanca"
+          placeholder="Nombre"
         ></b-form-input>
       </b-form-group>
 
@@ -31,8 +41,7 @@
         <b-form-input
           id="input2"
           v-model="form.Apellidos"
-          disabled="disabled"
-          placeholder="aguirre"
+          placeholder="Apellidos"
         ></b-form-input>
       </b-form-group>
 
@@ -46,8 +55,7 @@
         <b-form-input
           id="input3"
           v-model="form.Clave"
-          disabled="disabled"
-          placeholder="qwerty"
+          placeholder="Clave"
         ></b-form-input>
       </b-form-group>
 
@@ -63,7 +71,7 @@
           id="input4"
           v-model="form.Cedula"
           disabled="disabled"
-          placeholder="1"
+          placeholder="Cédula"
         ></b-form-input>
       </b-form-group>
 
@@ -76,8 +84,7 @@
         <b-form-input
           id="input5"
           v-model="form.Usuario"
-          disabled="disabled"
-          placeholder="Juank"
+          placeholder="Usuario"
         ></b-form-input>
       </b-form-group>
 
@@ -92,17 +99,13 @@
           id="input6"
           v-model="form.Correo"
           type='email'
-          disabled="disabled"
-          placeholder="sa@yh.com"
+          placeholder="Correo"
         ></b-form-input>
       </b-form-group>
     </b-form>
   </b-card>
       <div class="AdminOperador">
-        <b-button class="mt-2" variant="primary" style="width:200px" router-link tag="li" to="/OperadorActualizar" v-on:click="j = true"><br><strong>Actualizar</strong><br><br></b-button>
-            <div v-if="j">
-                <router-view></router-view>
-            </div>
+        <b-button class="mt-2" variant="primary" style="width:200px" @click="onSubmit"><br><strong>Actualizar</strong><br><br></b-button>
        </div>
   </div>
 </template>
@@ -122,13 +125,20 @@ export default {
         Usuario: '',
         Correo: ''
       },
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      tipe: '',
+      mensaje: '',
+      showServ: true,
+      showCrea: false,
+      items: [],
       show: true
     }
   },
   methods: {
     onSubmit (event) {
       axios
-        .post('http://localhost:4040/empleado/info/1', {
+        .post(localStorage.getItem('url') + '/empleado/actualizar/' + localStorage.getItem('IDpersona'), {
           nombre: this.form.nombre,
           apellidos: this.form.Apellidos,
           clave: this.form.Clave,
@@ -157,34 +167,46 @@ export default {
           if (response.data.respuesta === 'Usuario Ya Existe') {
             alert('Error en registro, la cédula ingresada ya esta registrada')
           } else {
-            localStorage.setItem('token-registro', response.data.access_token)
-            alert('Usuario Registrado')
+            localStorage.setItem('token-actualizar', response.data.access_token)
+            this.showAlert('success', 'Su información fue actualizada')
             this.onReset(event)
           }
         }).catch(error => {
           if (error.response.status === 500) {
-            alert('La cedula debe ser numérica, no ingrese letras')
+            alert('rror en la aplicación')
           } else {
             alert('Error en la aplicación')
           }
         })
       event.preventDefault()
     },
-    onReset (evt) {
-      evt.preventDefault()
-      // Reset our form values
-      this.form.nombre = ''
-      this.form.Apellidos = ''
-      this.form.Clave = ''
-      this.form.Cedula = ''
-      this.form.Usuario = ''
-      this.form.Correo = ''
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert (tipo, mensaje) {
+      this.tipe = tipo
+      this.mensaje = mensaje
+      this.dismissCountDown = this.dismissSecs
     }
+  },
+  mounted () {
+    axios
+      .post(localStorage.getItem('url') + '/empleado/info/' + localStorage.getItem('IDpersona')
+      ).then(response => {
+        console.log(response)
+        this.form.nombre = response.data.Nombre
+        this.form.Apellidos = response.data.Apellidos
+        this.form.Clave = response.data.Clave
+        this.form.Cedula = response.data.Cedula
+        this.form.Usuario = response.data.Usuario
+        this.form.Correo = response.data.Correo
+      }).catch(error => {
+        if (error.response.status === 500) {
+          alert('Error en la aplicación')
+        } else {
+          alert('Error en la aplicación')
+        }
+      })
   }
 }
 </script>
