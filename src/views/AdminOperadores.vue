@@ -2,14 +2,14 @@
   <div class="AdminOperador">
      <b-button variant="danger" router-link tag="li" to="/RegistroAdmin" v-on:click="j = true"><br><strong>Registrar</strong><br><br></b-button>
      <div>
-        <b-list-group  v-for="(dat,info,index) in tabla" :key="index">
-          <b-list-group-item :id="dat.Operadores" href="#">{{operadores}}</b-list-group-item>
-        </b-list-group>
+      <b-list-group v-for="(dat,info,index) in tabla" :key="index">
+         <b-list-group-item :id="dat.nombre" href="#">{{dat.nombre}}</b-list-group-item>
+      </b-list-group>
     </div>
+    <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
      <div v-if="j">
        <router-view></router-view>
      </div>
-     <div> <b-button type="submit" variant="primary" @click="actual">actualizar </b-button></div>
   </div>
 </template>
 
@@ -20,48 +20,23 @@ export default {
   components: {},
   data () {
     return {
-      i: 0,
+      j: false,
       form: {
-        idEmpresa: 0
+        idEmpresa: localStorage.getItem('IDEmpresa')
       },
-      tabla: [{
-
-      }]
+      tabla: []
     }
   },
-
   methods: {
+    ver (event) {
+      this.j = 'juan'
+    },
     actual () {
       this.actualizar(event)
-      console.log()
-    },
-    onSubmit (event) {
-      console.log(parseInt(localStorage.getItem('IDEmpresa'), 10))
-      axios
-        .post(localStorage.getItem('url') + '/solicitud/operadores', {
-          idEmpresa: parseInt(localStorage.getItem('IDEmpresa'), 10)
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          params: {
-          }
-        }
-        ).then(response => {
-          console.log(response)
-          console.log()
-          if (response.data.respuesta === 'Solicitud Fallida') {
-            alert('Solicitud Fallida')
-          } else {
-            alert('Solicitud Exitosa')
-          }
-        })
-      event.preventDefault()
     },
     actualizar (event) {
       axios
-        .get(localStorage.getItem('url') + '/solicitud/operadores', {
+        .get(localStorage.getItem('url') + '/solicitud/operadores/', {
         },
         {
           headers: {
@@ -69,6 +44,12 @@ export default {
           }
         }
         ).then(response => {
+          if (response.status === 200) {
+            this.showAlert('success', 'Actualizado')
+            this.tabla = response.data
+          } else {
+            this.showAlert()
+          }
           this.tabla = response.data
           console.log(response)
           alert('Actualizado')
