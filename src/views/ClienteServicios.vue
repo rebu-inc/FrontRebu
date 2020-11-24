@@ -4,7 +4,7 @@
     <h1 align="center">Servicios prestados</h1>
     <div heigh="50%">
       <b-list-group v-for="(dat,index) in tabla" :key="index">
-         <b-list-group-item :id="dat.nombre" @click="showModal(index)" href="#">{{dat.nombre}}{{index}}</b-list-group-item>
+         <b-list-group-item :id="dat.nombre" @click="showModal(index)" href="#">{{dat.nombre}}{{ descripcion}}</b-list-group-item>
       </b-list-group>
 
       <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
