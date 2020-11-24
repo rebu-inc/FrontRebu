@@ -4,7 +4,7 @@
 
       <h3>Mi información</h3>
 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="pt-2">
+    <b-form v-if="show" class="pt-2">
 
       <b-form-group
        label-cols="1"
@@ -17,7 +17,7 @@
           id="input1"
           v-model="form.nombre"
           disabled="disabled"
-          placeholder="juanca"
+          :placeholder= this.form.nombre
         ></b-form-input>
       </b-form-group>
 
@@ -92,17 +92,13 @@
           id="input6"
           v-model="form.Correo"
           type='email'
-          disabled="disabled"
           placeholder="sa@yh.com"
         ></b-form-input>
       </b-form-group>
     </b-form>
   </b-card>
       <div class="AdminOperador">
-        <b-button class="mt-2" variant="primary" style="width:200px" router-link tag="li" to="/OperadorActualizar" v-on:click="j = true"><br><strong>Actualizar</strong><br><br></b-button>
-            <div v-if="j">
-                <router-view></router-view>
-            </div>
+        <b-button class="mt-2" variant="primary" style="width:200px" @click="onSubmit"><br><strong>Actualizar</strong><br><br></b-button>
        </div>
   </div>
 </template>
@@ -128,7 +124,7 @@ export default {
   methods: {
     onSubmit (event) {
       axios
-        .post('http://localhost:4040/empleado/info/1', {
+        .post(localStorage.getItem('url') + '/empleado/actualizar/' + localStorage.getItem('IDpersona'), {
           nombre: this.form.nombre,
           apellidos: this.form.Apellidos,
           clave: this.form.Clave,
@@ -157,8 +153,8 @@ export default {
           if (response.data.respuesta === 'Usuario Ya Existe') {
             alert('Error en registro, la cédula ingresada ya esta registrada')
           } else {
-            localStorage.setItem('token-registro', response.data.access_token)
-            alert('Usuario Registrado')
+            localStorage.setItem('token-actualizar', response.data.access_token)
+            alert('usuario actualizado')
             this.onReset(event)
           }
         }).catch(error => {
@@ -169,22 +165,27 @@ export default {
           }
         })
       event.preventDefault()
-    },
-    onReset (evt) {
-      evt.preventDefault()
-      // Reset our form values
-      this.form.nombre = ''
-      this.form.Apellidos = ''
-      this.form.Clave = ''
-      this.form.Cedula = ''
-      this.form.Usuario = ''
-      this.form.Correo = ''
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
     }
+  },
+  mounted () {
+    axios
+      .post(localStorage.getItem('url') + '/empleado/info/' + localStorage.getItem('IDpersona')
+      ).then(response => {
+        console.log(response)
+        this.form.nombre = response.data.Nombre
+        this.form.Apellidos = response.data.Apellidos
+        this.form.Clave = response.data.Clave
+        this.form.Cedula = response.data.Cedula
+        this.form.Usuario = response.data.Usuario
+        this.form.Correo = response.data.Correo
+      }).catch(error => {
+        if (error.response.status === 500) {
+          alert('La cedula debe ser numérica, no ingrese letras')
+        } else {
+          alert('Error en la aplicación')
+        }
+      })
+    event.preventDefault()
   }
 }
 </script>
