@@ -2,8 +2,8 @@
   <div class="AdminOperador">
      <b-button variant="danger" router-link tag="li" to="/RegistroAdmin" v-on:click="j = true"><br><strong>Registrar</strong><br><br></b-button>
      <div>
-      <b-list-group v-for="(dat,info,index) in tabla" :key="index">
-         <b-list-group-item :id="dat.nombre" href="#">{{dat.nombre}}</b-list-group-item>
+      <b-list-group v-for="(info,index) in tabla" :key="index">
+         <b-list-group-item :id="info.nombre" href="#">{{info.nombre}}</b-list-group-item>
       </b-list-group>
     </div>
     <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
@@ -32,16 +32,31 @@ export default {
       this.j = 'juan'
     },
     actual () {
-      this.actualizar(event)
+      this.onSubmit(event)
+    },
+    onSubmit (event) {
+      axios
+        .post(localStorage.getItem('url') + '/solicitud/operadores/', {
+          idEmpresa: localStorage.getItem('IDEmpresa')
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          params: {
+          }
+        }
+        ).then(response => {
+          console.log(response)
+          this.tabla = response.data
+        })
+      event.preventDefault()
     },
     actualizar (event) {
       axios
         .get(localStorage.getItem('url') + '/solicitud/operadores/', {
         },
         {
-          headers: {
-            'Content-Type': 'application/json'
-          }
         }
         ).then(response => {
           if (response.status === 200) {
