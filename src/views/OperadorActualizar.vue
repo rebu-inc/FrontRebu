@@ -107,7 +107,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'RegistroAdmin.vue',
+  name: 'OperadorActualizar.vue',
   components: {},
   data () {
     return {
@@ -125,7 +125,7 @@ export default {
   methods: {
     onSubmit (event) {
       axios
-        .post('http://localhost:4040/registro/reg_empleado', {
+        .post('localhost:4040/empleado/actualizar/1234567', {
           nombre: this.form.nombre,
           apellidos: this.form.Apellidos,
           clave: this.form.Clave,
@@ -154,8 +154,8 @@ export default {
           if (response.data.respuesta === 'Usuario Ya Existe') {
             alert('Error en registro, la cédula ingresada ya esta registrada')
           } else {
-            localStorage.setItem('token-registro', response.data.access_token)
-            alert('Usuario Registrado')
+            localStorage.setItem('token-actualizar', response.data.access_token)
+            alert('usuario actualizado')
             this.onReset(event)
           }
         }).catch(error => {

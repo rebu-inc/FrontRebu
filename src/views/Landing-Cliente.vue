@@ -43,8 +43,8 @@ export default {
   },
   methods: {
     onClick () {
-      localStorage.clear()
-      this.$router.push('/Login')
+      localStorage.removeItem('token-cliente')
+      this.$router.push('Login')
     },
     ver () {
       if (this.menu) {

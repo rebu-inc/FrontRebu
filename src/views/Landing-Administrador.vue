@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     onClick () {
-      localStorage.clear()
+      localStorage.removeItem('token-Admin')
       this.$router.push('/Login')
     },
     ver () {
@@ -59,7 +59,7 @@ export default {
   beforeCreate () {
     console.log('jash')
     if (!localStorage.getItem('token-Admin')) {
-      this.$router.push('/Login')
+      this.$router.push('Login')
     }
   }
 }
