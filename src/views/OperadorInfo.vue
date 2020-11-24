@@ -1,5 +1,16 @@
 <template>
   <div align="center" class="pt-5 pl-5" id="RegistroAdmin">
+    <div>
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        :variant= this.tipe
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{mensaje}} ...
+      </b-alert>
+    </div>
     <b-card style="width:700px">
 
       <h3>Mi información</h3>
@@ -114,6 +125,13 @@ export default {
         Usuario: '',
         Correo: ''
       },
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      tipe: '',
+      mensaje: '',
+      showServ: true,
+      showCrea: false,
+      items: [],
       show: true
     }
   },
@@ -150,17 +168,25 @@ export default {
             alert('Error en registro, la cédula ingresada ya esta registrada')
           } else {
             localStorage.setItem('token-actualizar', response.data.access_token)
-            alert('usuario actualizado')
+            this.showAlert('success', 'Su información fue actualizada')
             this.onReset(event)
           }
         }).catch(error => {
           if (error.response.status === 500) {
-            alert('La cedula debe ser numérica, no ingrese letras')
+            alert('rror en la aplicación')
           } else {
             alert('Error en la aplicación')
           }
         })
       event.preventDefault()
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert (tipo, mensaje) {
+      this.tipe = tipo
+      this.mensaje = mensaje
+      this.dismissCountDown = this.dismissSecs
     }
   },
   mounted () {
@@ -176,7 +202,7 @@ export default {
         this.form.Correo = response.data.Correo
       }).catch(error => {
         if (error.response.status === 500) {
-          alert('La cedula debe ser numérica, no ingrese letras')
+          alert('Error en la aplicación')
         } else {
           alert('Error en la aplicación')
         }
