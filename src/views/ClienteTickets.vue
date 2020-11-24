@@ -64,7 +64,7 @@ export default {
       doc.text(this.items[index].idTicket.toString(), 110, 30, 'left', 'ideographic')
       doc.text('Id Servicio:', 10, 40, 'left', 'ideographic')
       doc.text(this.items[index].idServicio.toString(), 110, 40, 'left', 'ideographic')
-      doc.text('nombre del Servicio:', 10, 50, 'left', 'ideographic')
+      doc.text('Nombre del Servicio:', 10, 50, 'left', 'ideographic')
       doc.text(this.items[index].nombreServicio.toString(), 110, 50, 'left', 'ideographic')
       doc.text('Nit Empresa Prestadora:', 10, 60, 'left', 'ideographic')
       doc.text(this.items[index].nitEmpresaPrestadora.toString(), 110, 60, 'left', 'ideographic')
