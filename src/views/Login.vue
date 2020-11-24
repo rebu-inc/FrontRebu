@@ -35,10 +35,10 @@
                                 type="password" class="form-control form-control-lg" v-model="password" required></b-form-input>
                             </b-col>
                             <b-col class="pt-2">
-                                <button type="submit" style="width:465px" class="btn btn-dark btn-lg btn-block">Ingresar</button>
+                                <button type="submit" style="width:465px" class="btn btn-dark btn-lg btn-block" v-if="!showLogin">Ingresar</button>
                             </b-col>
                         </b-row>
-
+                        <div class="preloader" v-if="showLogin"></div>
                         <h1></h1>
                         <b-row sm="3" class="pl-5">
                             <p class="forgot-password text-center" style="width:290px" >
@@ -63,11 +63,13 @@ export default {
       tipe: '',
       mensaje: '',
       username: '',
-      password: ''
+      password: '',
+      showLogin: false
     }
   },
   methods: {
     login (event) {
+      this.showLogin = true
       axios
         .post(localStorage.getItem('url') + '/login/principal', {
           usuario: this.username,
@@ -85,11 +87,13 @@ export default {
           }
         }
         ).then(response => {
-          localStorage.setItem('IDpersona', response.data.idPersonas)
+          console.log(response)
+          localStorage.setItem('IDpersona', response.data.idPersona)
           localStorage.setItem('IDEmpresa', response.data.idEmpresa)
           localStorage.setItem('nitES', response.data.idEmpresa)
           if (response.data.respuesta === 'Usuario O Contraseña Erroneo') {
             this.showAlert('danger', response.data.respuesta)
+            this.showLogin = false
           } else {
             if (response.data.rol === 'admin') {
               localStorage.setItem('token-Admin', response.data.access_token)
@@ -107,7 +111,9 @@ export default {
               localStorage.setItem('token-cliente', response.data.access_token)
               this.$router.push('LandingCliente')
             }
+            this.showLogin = false
           }
+          this.showLogin = false
         })
       event.preventDefault()
     },
@@ -122,3 +128,23 @@ export default {
   }
 }
 </script>
+<style >
+.preloader {
+  width: 70px;
+  height: 70px;
+  border: 10px solid #eee;
+  border-top: 10px solid rgb(79, 120, 255);
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
