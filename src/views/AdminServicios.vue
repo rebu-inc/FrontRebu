@@ -11,11 +11,11 @@
         {{mensaje}} ...
       </b-alert>
     </div>
-
     <div class="row" id="botones" >
        <b-button @click="actualizar" id="actualizar" variant="danger">Actualizar</b-button>
        <b-button @click="crear" id="Crear" variant="danger">Crear</b-button>
     </div>
+    <div class="preloader" v-if="showLogin1"></div>
     <div align="center" class="pt-5 pl-5" id="nuevoServicio" v-if="showCrea">
       <b-card style="width:700px">
         <h3>REGISTRO</h3>
@@ -48,10 +48,11 @@
             rows="3"
             max-rows="6"
           ></b-form-textarea>
+        <div class="preloader" v-if="showLogin2"></div>
         </b-form-group>
-        <b-button  @click="crear_servicio" variant="primary">Submit</b-button>
-        <b-button @click="Reset" class="m-2" variant="danger">Reset</b-button>
-        <b-button  @click="cerrar" variant="primary">Cancelar</b-button>
+        <b-button  @click="crear_servicio" variant="primary" v-if="!showLogin2">Submit</b-button>
+        <b-button @click="Reset" class="m-2" variant="danger" v-if="!showLogin2">Reset</b-button>
+        <b-button  @click="cerrar" variant="primary" v-if="!showLogin2">Cancelar</b-button>
       </b-form>
     </b-card>
     </div>
@@ -75,14 +76,12 @@
 </template>
 <script>
 import Axios from 'axios'
-console.log(localStorage.getItem('hola'))
 export default {
   data () {
     return {
       form: {
         nombre: '',
-        Descripcion: '',
-        idPersona: localStorage.getItem('IDpersona')
+        Descripcion: ''
       },
       dismissSecs: 5,
       dismissCountDown: 0,
@@ -90,11 +89,14 @@ export default {
       mensaje: '',
       showServ: true,
       showCrea: false,
-      items: []
+      items: [],
+      showLogin1: false,
+      showLogin2: false
     }
   },
   methods: {
     actualizar (event) {
+      this.showLogin1 = true
       this.showServ = true
       this.showCrea = false
       Axios.post(localStorage.getItem('url') + '/empleado/serv_empresa/' + localStorage.getItem('IDEmpresa')
@@ -105,14 +107,14 @@ export default {
         } else {
           this.showAlert()
         }
-        console.log(response)
+        this.showLogin1 = false
       }).catch(error => {
-        console.log(error)
         if (error.response === 500) {
           this.showAlert('warning', error.response.data.error)
         } else {
           this.showAlert('warning', error.response.data.error)
         }
+        this.showLogin2 = false
       })
     },
     submit (event) {
@@ -138,6 +140,7 @@ export default {
       })
     },
     crear_servicio () {
+      this.showLogin2 = true
       Axios
         .post(localStorage.getItem('url') + '/registro/reg_serv', {
           descripcion: this.form.Descripcion,
@@ -157,7 +160,8 @@ export default {
           } else {
             this.showAlert()
           }
-          console.log(response)
+          this.showLogin2 = false
+          this.Reset(event)
         }).catch(error => {
           console.log(error.response.data.error)
           if (error.response === 500) {
@@ -165,9 +169,9 @@ export default {
           } else {
             this.showAlert('warning', error.response.data.error)
           }
+          this.showLogin2 = false
         })
       event.preventDefault()
-      this.Reset(event)
     },
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
@@ -202,6 +206,24 @@ export default {
 }
 #acord{
   width: 100%;
+}
+.preloader {
+  width: 70px;
+  height: 70px;
+  border: 10px solid #eee;
+  border-top: 10px solid rgb(79, 120, 255);
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 </style>
