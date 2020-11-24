@@ -3,15 +3,14 @@
   <div class="Servicios">
     <h1 align="center">Servicios prestados</h1>
     <div heigh="50%">
-      <b-list-group v-for="(dat,index) in tabla" :key="index">
-         <b-list-group-item :id="dat.nombre" @click="showModal(index)" href="#">{{dat.nombre}}{{ descripcion}}</b-list-group-item>
+      <b-list-group v-for="(dat,info,index) in tabla" :key="index">
+         <b-list-group-item :id="dat.nombre" @click="showModal(index)" href="#">{{dat.nombre}}</b-list-group-item>
       </b-list-group>
 
       <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
 
       <b-modal ref="my-modal">
-        <div class="d-block text-center">
-        </div>
+       <div class="d-block text-center"> </div>
         <b-button type ='submit' class="mt-2" variant="outline-warning" block @click="toggleModal">Solicitar Servicio</b-button>
       </b-modal>
     </div>
@@ -31,7 +30,7 @@ export default {
         nitEmpresaPrestadora: 0,
         idServicio: 0,
         descripcion: '',
-        idUsuario:0
+        idUsuario: 0
       },
       tabla: [{
       }]
@@ -67,7 +66,7 @@ export default {
           nitEmpresaPrestadora: this.tabla[this.i].empres,
           idServicio: this.tabla[this.i].idservicios,
           descripcion: this.tabla[this.i].descripcion,
-          idUsuario: parseInt(localStorage.getItem('IDpersona'), 10),
+          idUsuario: parseInt(localStorage.getItem('IDpersona'), 10)
         },
         {
           headers: {
