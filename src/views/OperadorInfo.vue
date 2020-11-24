@@ -16,8 +16,7 @@
         <b-form-input inline
           id="input1"
           v-model="form.nombre"
-          disabled="disabled"
-          :placeholder= this.form.nombre
+          placeholder="Nombre"
         ></b-form-input>
       </b-form-group>
 
@@ -31,8 +30,7 @@
         <b-form-input
           id="input2"
           v-model="form.Apellidos"
-          disabled="disabled"
-          placeholder="aguirre"
+          placeholder="Apellidos"
         ></b-form-input>
       </b-form-group>
 
@@ -46,8 +44,7 @@
         <b-form-input
           id="input3"
           v-model="form.Clave"
-          disabled="disabled"
-          placeholder="qwerty"
+          placeholder="Clave"
         ></b-form-input>
       </b-form-group>
 
@@ -63,7 +60,7 @@
           id="input4"
           v-model="form.Cedula"
           disabled="disabled"
-          placeholder="1"
+          placeholder="Cédula"
         ></b-form-input>
       </b-form-group>
 
@@ -76,8 +73,7 @@
         <b-form-input
           id="input5"
           v-model="form.Usuario"
-          disabled="disabled"
-          placeholder="Juank"
+          placeholder="Usuario"
         ></b-form-input>
       </b-form-group>
 
@@ -92,7 +88,7 @@
           id="input6"
           v-model="form.Correo"
           type='email'
-          placeholder="sa@yh.com"
+          placeholder="Correo"
         ></b-form-input>
       </b-form-group>
     </b-form>
@@ -185,7 +181,6 @@ export default {
           alert('Error en la aplicación')
         }
       })
-    event.preventDefault()
   }
 }
 </script>
