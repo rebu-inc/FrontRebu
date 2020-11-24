@@ -8,7 +8,7 @@
         @dismissed="dismissCountDown=0"
         @dismiss-count-down="countDownChanged"
       >
-        {{mensaje}} ...
+        {{mensaje}}
       </b-alert>
     </div>
     <b-card style="width:700px">
