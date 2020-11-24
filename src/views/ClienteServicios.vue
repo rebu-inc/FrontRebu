@@ -30,7 +30,8 @@ export default {
         nitEmpresaSolicitando: 0,
         nitEmpresaPrestadora: 0,
         idServicio: 0,
-        descripcion: ''
+        descripcion: '',
+        idUsuario:0
       },
       tabla: [{
       }]
@@ -59,12 +60,14 @@ export default {
       console.log(this.tabla[this.i].empres)
       console.log(this.tabla[this.i].idservicios)
       console.log(this.tabla[this.i].descripcion)
+      console.log(parseInt(localStorage.getItem('IDpersona'), 10))
       axios
         .post(localStorage.getItem('url') + '/solicitud/servicio/', {
           nitEmpresaSolicitando: parseInt(localStorage.getItem('nitES'), 10),
           nitEmpresaPrestadora: this.tabla[this.i].empres,
           idServicio: this.tabla[this.i].idservicios,
-          descripcion: this.tabla[this.i].descripcion
+          descripcion: this.tabla[this.i].descripcion,
+          idUsuario: parseInt(localStorage.getItem('IDpersona'), 10),
         },
         {
           headers: {
