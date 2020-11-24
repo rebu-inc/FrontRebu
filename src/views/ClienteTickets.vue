@@ -60,17 +60,34 @@ export default {
     Despdf (index) {
       var doc = jsPDF()
       doc.text('TickerWork', 95, 10, 'left', 'ideographic')
-      doc.text(this.items[index].nitEmpresaPrestadora, 95, 10, 'left', 'ideographic')
-      doc.save('hola.pdf')
+      doc.text('Id Ticket:', 10, 30, 'left', 'ideographic')
+      doc.text(this.items[index].idTicket.toString(), 110, 30, 'left', 'ideographic')
+      doc.text('Id Servicio:', 10, 40, 'left', 'ideographic')
+      doc.text(this.items[index].idServicio.toString(), 110, 40, 'left', 'ideographic')
+      doc.text('nombre del Servicio:', 10, 50, 'left', 'ideographic')
+      doc.text(this.items[index].nombreServicio.toString(), 110, 50, 'left', 'ideographic')
+      doc.text('Nit Empresa Prestadora:', 10, 60, 'left', 'ideographic')
+      doc.text(this.items[index].nitEmpresaPrestadora.toString(), 110, 60, 'left', 'ideographic')
+      doc.text('Nombre Empresa Prestadora:', 10, 70, 'left', 'ideographic')
+      doc.text(this.items[index].nombreEmpresaPrestadora.toString(), 110, 70, 'left', 'ideographic')
+      doc.text('Nit Empresa Cliente:', 10, 80, 'left', 'ideographic')
+      doc.text(this.items[index].nitEmpresaCliente.toString(), 110, 80, 'left', 'ideographic')
+      doc.text('Nombre Empresa Cliente:', 10, 90, 'left', 'ideographic')
+      doc.text(this.items[index].nombreEmpresaCliente.toString(), 110, 90, 'left', 'ideographic')
+      doc.text('Nombre del Cliente:', 10, 100, 'left', 'ideographic')
+      doc.text(this.items[index].nombrePersonaCliente.toString(), 110, 100, 'left', 'ideographic')
+      doc.text('Nombre del Encargado:', 10, 110, 'left', 'ideographic')
+      doc.text(this.items[index].nombreOperador.toString(), 110, 110, 'left', 'ideographic')
+      doc.text('Descripcion:', 10, 120, 'left', 'ideographic')
+      doc.text(this.items[index].descirpcionTicket.toString(), 110, 120, 'left', 'ideographic')
+      doc.save(this.items[index].idTicket.toString() + '.pdf')
     },
     actualizar () {
       this.showLogin = true
-      console.log(localStorage.getItem('IDEmpresa'))
       Axios.post(localStorage.getItem('url') + '/empleado/mis_tickets', {
-        id: localStorage.getItem('IDEmpresa')
+        id: localStorage.getItem('IDpersona')
       }
       ).then(response => {
-        console.log(response.data)
         if (response.status === 200) {
           this.showAlert('success', 'Fueron actualizados los tickets ')
           this.items = response.data
@@ -79,7 +96,6 @@ export default {
           this.showAlert()
         }
       }).catch(error => {
-        console.log(error)
         if (error.response === 500) {
           this.showAlert('warning', error.response.data.error)
         } else {
