@@ -1,13 +1,14 @@
-<template><div id="app">
+<template>
+  <div id="app">
     <div class="row">
-      <div id="nav">
-          <b-button-group vertical style="width:270px" size="lg">
+      <div id="nav" class="col-md-3 col-sd-2 col-xs-1">
+          <b-button-group vertical style="width:100%" size="lg">
             <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Operador!<br></b-button>
             <b-button variant="danger" router-link tag="li" to="/OperdorScervicios"><br><strong>Servicios</strong><br><br></b-button>
             <b-button variant="danger" router-link tag="li" to="/OperadorInfo"><br><strong>Información</strong><br><br></b-button>
           </b-button-group>
       </div>
-        <div class="col" style="width:10px">
+        <div class="col-md-9 col-sd-6 col-xs-3" style="width:100%">
             <div id="nav1" class="row">
               <div class="col-md-10">
                 <b-input-group prepend="Buscar" >
@@ -21,7 +22,7 @@
                 <div class="row">
                   <b-avatar  button @click="ver" variant="info"></b-avatar>
                 </div>
-                <b-list-group v-if="menu" id="menu-salir">
+                <b-list-group v-if="menu" id="menuSalir">
                   <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
                 </b-list-group>
               </div>
@@ -72,12 +73,14 @@ export default {
 #nav {
   list-style: none;
   padding:0px;
-  background: #f4e0de;
+  background: #dc3545;
   width:19%;
   max-width: 10000px;
   color: #EB6359;
 }
-
+#menuSalir {
+  position: fixed;
+}
 #nav1 {
   list-style: none;
   padding:15px;
