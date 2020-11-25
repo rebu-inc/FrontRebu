@@ -3,14 +3,13 @@
      <b-button variant="danger" router-link tag="li" to="/RegistroAdmin" v-on:click="j = true"><br><strong>Registrar</strong><br><br></b-button>
      <div>
       <b-list-group v-for="(info,index) in tabla" :key="index">
-         <b-list-group-item :id="info.nombre" href="#">{{info.nombre}}</b-list-group-item>
+         <b-list-group-item :id="info.nombre" href="#">{{info.nombre}} </b-list-group-item>
       </b-list-group>
     </div>
-    <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
-     <div v-if="j">
-       <router-view></router-view>
-     </div>
-  </div>
+      <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
+       <div id="log" class="preloader" v-if="showLogin"></div>
+       </div>
+
 </template>
 
 <script>
@@ -20,7 +19,7 @@ export default {
   components: {},
   data () {
     return {
-      j: false,
+      showLogin: false,
       form: {
         idEmpresa: localStorage.getItem('IDEmpresa')
       },
@@ -28,13 +27,11 @@ export default {
     }
   },
   methods: {
-    ver (event) {
-      this.j = 'juan'
-    },
     actual () {
       this.onSubmit(event)
     },
     onSubmit (event) {
+      this.showLogin = true
       axios
         .post(localStorage.getItem('url') + '/solicitud/operadores/', {
           idEmpresa: localStorage.getItem('IDEmpresa')
@@ -49,6 +46,7 @@ export default {
         ).then(response => {
           console.log(response)
           this.tabla = response.data
+          this.showLogin = false
         })
       event.preventDefault()
     },
@@ -71,6 +69,31 @@ export default {
         })
       event.preventDefault()
     }
+  },
+  mounted () {
+    this.actualizar()
   }
 }
 </script>
+
+<style>
+.preloader {
+  width: 70px;
+  height: 70px;
+  display: inline-block;
+  border: 10px solid #eee;
+  border-top: 10px solid rgb(79, 120, 255);
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
