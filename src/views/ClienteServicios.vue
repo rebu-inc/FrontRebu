@@ -3,15 +3,14 @@
   <div class="Servicios">
     <h1 align="center">Servicios prestados</h1>
     <div heigh="50%">
-      <b-list-group v-for="(dat,index) in tabla" :key="index">
-         <b-list-group-item :id="dat.nombre" @click="showModal(index)" href="#">{{dat.nombre}}{{index}}</b-list-group-item>
+      <b-list-group v-for="(dat,info,index) in tabla" :key="index">
+         <b-list-group-item :id="dat.nombre" @click="showModal(index)" href="#">{{dat.nombre}}</b-list-group-item>
       </b-list-group>
 
       <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
 
       <b-modal ref="my-modal">
-        <div class="d-block text-center">
-        </div>
+       <div class="d-block text-center"></div>
         <b-button type ='submit' class="mt-2" variant="outline-warning" block @click="toggleModal">Solicitar Servicio</b-button>
       </b-modal>
     </div>
@@ -30,7 +29,8 @@ export default {
         nitEmpresaSolicitando: 0,
         nitEmpresaPrestadora: 0,
         idServicio: 0,
-        descripcion: ''
+        descripcion: '',
+        idUsuario: 0
       },
       tabla: [{
       }]
@@ -59,12 +59,14 @@ export default {
       console.log(this.tabla[this.i].empres)
       console.log(this.tabla[this.i].idservicios)
       console.log(this.tabla[this.i].descripcion)
+      console.log(parseInt(localStorage.getItem('IDpersona'), 10))
       axios
         .post(localStorage.getItem('url') + '/solicitud/servicio/', {
           nitEmpresaSolicitando: parseInt(localStorage.getItem('nitES'), 10),
           nitEmpresaPrestadora: this.tabla[this.i].empres,
           idServicio: this.tabla[this.i].idservicios,
-          descripcion: this.tabla[this.i].descripcion
+          descripcion: this.tabla[this.i].descripcion,
+          idUsuario: parseInt(localStorage.getItem('IDpersona'), 10)
         },
         {
           headers: {
@@ -94,11 +96,12 @@ export default {
         }
         ).then(response => {
           this.tabla = response.data
-          console.log(response)
-          alert('Actualizado')
         })
       event.preventDefault()
     }
+  },
+  mounted () {
+    this.actualizar()
   }
 }
 </script>
