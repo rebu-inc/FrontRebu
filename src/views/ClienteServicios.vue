@@ -10,7 +10,7 @@
       <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
 
       <b-modal ref="my-modal">
-       <div class="d-block text-center"> </div>
+       <div class="d-block text-center"></div>
         <b-button type ='submit' class="mt-2" variant="outline-warning" block @click="toggleModal">Solicitar Servicio</b-button>
       </b-modal>
     </div>
@@ -96,11 +96,12 @@ export default {
         }
         ).then(response => {
           this.tabla = response.data
-          console.log(response)
-          alert('Actualizado')
         })
       event.preventDefault()
     }
+  },
+  mounted () {
+    this.actualizar()
   }
 }
 </script>
