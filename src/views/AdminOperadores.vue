@@ -1,10 +1,28 @@
 <template>
   <div class="AdminOperador">
      <b-button variant="danger" router-link tag="li" to="/RegistroAdmin" v-on:click="j = true"><br><strong>Registrar</strong><br><br></b-button>
-     <div>
-      <b-list-group v-for="(info,index) in tabla" :key="index">
-         <b-list-group-item :id="info.nombre" href="#">{{info.nombre}} </b-list-group-item>
-      </b-list-group>
+
+      <!---->
+      <div>
+      <div class="row" id="serv" v-if="showServ">
+      <div class="accordion" role="tablist" id="acord" >
+        <b-card no-body class="mb-1" v-for="(info, index) in tabla" :key="index">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle="info.nombre.toString()" variant="info">{{info.nombre}}</b-button>
+          </b-card-header>
+          <b-collapse :id="info.nombre.toString()" invisible accordion="my-accordion" role="tabpanel">
+            <b-card-body>
+              <b-card-text>Apellidos: {{info.apellidos}}</b-card-text>
+              <b-card-text>Correo: {{ info.correo }}</b-card-text>
+              <b-card-text>cedula: {{ info.cedula }}</b-card-text>
+              <b-card-text>Usuario: {{ info.usuario }}</b-card-text>
+            </b-card-body>
+          </b-collapse>
+        </b-card>
+      </div>
+
+          <!---->
+      </div>
     </div>
       <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
        <div id="log" class="preloader" v-if="showLogin"></div>
@@ -23,7 +41,8 @@ export default {
       form: {
         idEmpresa: localStorage.getItem('IDEmpresa')
       },
-      tabla: []
+      tabla: [],
+      showServ: true
     }
   },
   methods: {
@@ -32,6 +51,7 @@ export default {
     },
     onSubmit (event) {
       this.showLogin = true
+      this.showServ = true
       axios
         .post(localStorage.getItem('url') + '/solicitud/operadores/', {
           idEmpresa: localStorage.getItem('IDEmpresa')
