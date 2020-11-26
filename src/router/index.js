@@ -70,6 +70,11 @@ const routes = [
         component: () => import('../views/AdminServicios.vue')
       },
       {
+        path: '/AdminTickets',
+        name: 'AdminTickets',
+        component: () => import('../views/AdminTickets.vue')
+      },
+      {
         path: '/AdminOperadores',
         name: 'AdminOperadores',
         component: () => import('../views/AdminOperadores.vue'),
@@ -80,11 +85,6 @@ const routes = [
             component: () => import('../views/RegistroAdmin.vue')
           }
         ]
-      },
-      {
-        path: '/AdminTickets',
-        name: 'AdminTickets',
-        component: () => import('../views/AdminTickets.vue')
       },
       {
         path: '/AdminReporte',

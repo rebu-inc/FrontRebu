@@ -1,5 +1,23 @@
 <template>
   <div class="AdminOperador">
+    <div id="nav1" class="row">
+      <div class="col-md-10">
+        <b-input-group prepend="Buscar" >
+          <b-form-input></b-form-input>
+          <b-input-group-append>
+            <b-button variant="info">ir</b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </div>
+      <div class="col-md-2">
+        <div class="row">
+          <b-avatar  button @click="ver" variant="info"></b-avatar>
+        </div>
+        <b-list-group v-if="menu" id="menuSalir">
+          <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
+        </b-list-group>
+      </div>
+    </div>
      <b-button variant="primary" @click="actual"><br><strong>Actualizar</strong><br><br></b-button>
      <b-button variant="danger" v-on:click="showreg = !showreg"><br><strong>Registrar</strong><br><br></b-button>
        <router-view></router-view>
@@ -166,12 +184,24 @@ export default {
       mensaje: '',
       show: true,
       tabla: [],
+      menu: false,
       showServ: true,
       showreg: false,
       showLogin7: false
     }
   },
   methods: {
+    onClick () {
+      localStorage.removeItem('token-Admin')
+      this.$router.push('/Login')
+    },
+    ver () {
+      if (this.menu) {
+        this.menu = false
+      } else {
+        this.menu = true
+      }
+    },
     actual () {
       this.onSubmit(event)
     },
@@ -259,10 +289,27 @@ export default {
 </script>
 
 <style>
+#serv{
+  margin-left:0px;
+}
+#card{
+  width: 600px;
+}
+#actualizar{
+  background: white;
+  color: black;
+  border-color: #087589;
+}
+.row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+#acord{
+  width: 100%;
+}
 .preloader {
   width: 70px;
   height: 70px;
-  display: inline-block;
   border: 10px solid #eee;
   border-top: 10px solid rgb(79, 120, 255);
   border-radius: 50%;
@@ -278,4 +325,5 @@ export default {
     transform: rotate(360deg);
   }
 }
+
 </style>
