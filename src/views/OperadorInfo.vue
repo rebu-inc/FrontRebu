@@ -1,7 +1,12 @@
 <template>
   <div align="center" class="pt-5 pl-5" id="RegistroAdmin">
     <div>
-      <b-alert
+    </div>
+    <div class="preloader" v-if="showLogin5"></div>
+    <div class="preloader" v-if="showLogin7"></div>
+    <br>
+    <b-card style="width:700px">
+        <b-alert
         :show="dismissCountDown"
         dismissible
         :variant= this.tipe
@@ -10,8 +15,6 @@
       >
         {{mensaje}}
       </b-alert>
-    </div>
-    <b-card style="width:700px">
 
       <h3>Mi información</h3>
 
@@ -53,12 +56,17 @@
         style="width:550px"
       >
         <b-form-input
-          id="input3"
+          id="password"
           v-model="form.Clave"
+          disabled="disabled"
+          type="password"
           placeholder="Clave"
-        ></b-form-input>
+          name="password"
+          class="form-control"
+          data-toggle="password"
+        >
+       </b-form-input>
       </b-form-group>
-
       <b-form-group
         label-cols="4"
         label-cols-lg="4"
@@ -85,6 +93,7 @@
           id="input5"
           v-model="form.Usuario"
           placeholder="Usuario"
+          disabled="disabled"
         ></b-form-input>
       </b-form-group>
 
@@ -105,7 +114,7 @@
     </b-form>
   </b-card>
       <div class="AdminOperador">
-        <b-button class="mt-2" variant="primary" style="width:200px" @click="onSubmit"><br><strong>Actualizar</strong><br><br></b-button>
+        <b-button class="mt-2" variant="primary" style="width:700px" @click="onSubmit"><br><strong>Actualizar</strong><br><br></b-button>
        </div>
   </div>
 </template>
@@ -125,18 +134,20 @@ export default {
         Usuario: '',
         Correo: ''
       },
+      type: 'password',
+      btnText: 'Show Password',
       dismissSecs: 5,
       dismissCountDown: 0,
       tipe: '',
       mensaje: '',
-      showServ: true,
-      showCrea: false,
-      items: [],
+      showLogin5: false,
+      showLogin7: false,
       show: true
     }
   },
   methods: {
     onSubmit (event) {
+      this.showLogin7 = true
       axios
         .post(localStorage.getItem('url') + '/empleado/actualizar/' + localStorage.getItem('IDpersona'), {
           nombre: this.form.nombre,
@@ -169,14 +180,15 @@ export default {
           } else {
             localStorage.setItem('token-actualizar', response.data.access_token)
             this.showAlert('success', 'Su información fue actualizada')
-            this.onReset(event)
           }
+          this.showLogin7 = false
         }).catch(error => {
           if (error.response.status === 500) {
-            alert('rror en la aplicación')
+            alert('Error en la aplicación')
           } else {
             alert('Error en la aplicación')
           }
+          this.showLogin7 = false
         })
       event.preventDefault()
     },
@@ -187,9 +199,19 @@ export default {
       this.tipe = tipo
       this.mensaje = mensaje
       this.dismissCountDown = this.dismissSecs
+    },
+    showPassword () {
+      if (this.type === 'password') {
+        this.type = 'text'
+        this.btnText = 'Hide Password'
+      } else {
+        this.type = 'password'
+        this.btnText = 'Show Password'
+      }
     }
   },
   mounted () {
+    this.showLogin5 = true
     axios
       .post(localStorage.getItem('url') + '/empleado/info/' + localStorage.getItem('IDpersona')
       ).then(response => {
@@ -200,6 +222,7 @@ export default {
         this.form.Cedula = response.data.Cedula
         this.form.Usuario = response.data.Usuario
         this.form.Correo = response.data.Correo
+        this.showLogin5 = false
       }).catch(error => {
         if (error.response.status === 500) {
           alert('Error en la aplicación')
@@ -210,3 +233,23 @@ export default {
   }
 }
 </script>
+<style >
+.preloader {
+  width: 70px;
+  height: 70px;
+  border: 10px solid #eee;
+  border-top: 10px solid rgb(79, 120, 255);
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
