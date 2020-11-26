@@ -1,33 +1,34 @@
-<template><div id="app">
+<template>
+  <div id="app">
     <div class="row">
-      <div id="nav">
-          <b-button-group vertical style="width:270px" size="lg">
+      <div id="nav" class="col-md-3 col-sd-2 col-xs-1">
+          <b-button-group vertical style="width:100%" size="lg">
             <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Cliente!<br></b-button>
             <b-button variant="danger" router-link tag="li" to="/ClienteServicios"><br><strong>Servicios</strong><br><br></b-button>
             <b-button variant="danger" router-link tag="li" to="/ClienteTickets"><br><strong>Tickets</strong><br><br></b-button>
           </b-button-group>
       </div>
-        <div class="col" style="width:10px">
-            <div id="nav1" class="row">
-              <div class="col-md-10">
-                <b-input-group prepend="Buscar" >
-                  <b-form-input></b-form-input>
-                  <b-input-group-append>
-                    <b-button variant="info">ir</b-button>
-                  </b-input-group-append>
-                </b-input-group>
-              </div>
-              <div class="col-md-2">
-                <div class="row">
-                  <b-avatar  button @click="ver" variant="info"></b-avatar>
-                </div>
-                <b-list-group v-if="menu" id="menu-salir">
-                  <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
-                </b-list-group>
-              </div>
+      <div class="col-md-9 col-sd-6 col-xs-3" style="width:100%">
+        <div id="nav1" class="row">
+          <div class="col-md-10">
+            <b-input-group prepend="Buscar" >
+              <b-form-input></b-form-input>
+              <b-input-group-append>
+                <b-button variant="info">ir</b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </div>
+          <div class="col-md-2">
+            <div class="row">
+              <b-avatar  button @click="ver" variant="info"></b-avatar>
             </div>
-          <router-view/>
+            <b-list-group v-if="menu" id="menuSalir">
+              <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
+            </b-list-group>
+          </div>
         </div>
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -66,12 +67,14 @@ export default {
 #nav {
   list-style: none;
   padding:0px;
-  background: #f4e0de;
+  background: #dc3545;
   width:19%;
   max-width: 10000px;
   color: #EB6359;
 }
-
+#menuSalir {
+  position: fixed;
+}
 #nav1 {
   list-style: none;
   padding:15px;
@@ -106,7 +109,6 @@ li:hover{
 }
 #con{
   background: #087589;
-  position: relative;
   width: 100%;
   bottom:0;
   color: black;
