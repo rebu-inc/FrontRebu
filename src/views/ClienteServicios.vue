@@ -1,5 +1,23 @@
 <template>
   <div class="ClienteServicios">
+    <div id="nav1" class="row">
+      <div class="col-md-10">
+        <b-input-group prepend="Buscar" >
+          <b-form-input v-model="filtro" v-on:keyup="filtrar"></b-form-input>
+          <b-input-group-append>
+            <b-button variant="info">ir</b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </div>
+      <div class="col-md-2">
+        <div class="row">
+          <b-avatar  button @click="ver" variant="info"></b-avatar>
+        </div>
+        <b-list-group v-if="menu" id="menuSalir">
+          <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
+        </b-list-group>
+      </div>
+    </div>
     <div>
       <h1 align="center"><strong>Servicios prestados</strong></h1>
     </div>
@@ -17,7 +35,7 @@
     <div id="log" class="preloader" v-if="showLogin"></div>
     <div class="row" id="serv" >
       <div class="accordion" role="tablist" id="acord1" >
-        <b-card no-body class="mb-1" v-for="(info, index) in tabla" :key="index">
+        <b-card no-body class="mb-1" v-for="(info, index) in filtrado" :key="index">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle="info.idservicios.toString()" variant="info">{{info.nombre}}</b-button>
           </b-card-header>
@@ -62,11 +80,24 @@ export default {
       dismissCountDown: 0,
       tipe: '',
       mensaje: '',
-      showLogin: false
+      showLogin: false,
+      menu: false,
+      filtrado: [],
+      filtro: ''
     }
   },
 
   methods: {
+    filtrar () {
+      this.filtrado = []
+      this.filtro = this.filtro.toLowerCase()
+      for (const servicio of this.tabla) {
+        const nombre = servicio.nombre.toLowerCase()
+        if (nombre.indexOf(this.filtro) !== -1) {
+          this.filtrado.push(servicio)
+        }
+      }
+    },
     showModal (index) {
       console.log(index)
       this.i = index
@@ -119,6 +150,7 @@ export default {
         ).then(response => {
           this.tabla = response.data
           this.showLogin = false
+          this.filtrar()
         })
     },
     countDownChanged (dismissCountDown) {
@@ -128,6 +160,17 @@ export default {
       this.tipe = tipo
       this.mensaje = mensaje
       this.dismissCountDown = this.dismissSecs
+    },
+    onClick () {
+      localStorage.removeItem('token-cliente')
+      this.$router.push('Login')
+    },
+    ver () {
+      if (this.menu) {
+        this.menu = false
+      } else {
+        this.menu = true
+      }
     }
   },
   mounted () {

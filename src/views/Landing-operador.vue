@@ -9,24 +9,6 @@
           </b-button-group>
       </div>
         <div class="col-md-9 col-sd-6 col-xs-3" style="width:100%">
-            <div id="nav1" class="row">
-              <div class="col-md-10">
-                <b-input-group prepend="Buscar" >
-                  <b-form-input></b-form-input>
-                  <b-input-group-append>
-                    <b-button variant="info">ir</b-button>
-                  </b-input-group-append>
-                </b-input-group>
-              </div>
-              <div class="col-md-2">
-                <div class="row">
-                  <b-avatar  button @click="ver" variant="info"></b-avatar>
-                </div>
-                <b-list-group v-if="menu" id="menuSalir">
-                  <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
-                </b-list-group>
-              </div>
-            </div>
           <router-view/>
         </div>
     </div>
@@ -45,19 +27,6 @@ export default {
     console.log('jash')
     if (!localStorage.getItem('token-operador')) {
       this.$router.push('/Login')
-    }
-  },
-  methods: {
-    onClick () {
-      localStorage.removeItem('token-operador')
-      this.$router.push('Login')
-    },
-    ver () {
-      if (this.menu) {
-        this.menu = false
-      } else {
-        this.menu = true
-      }
     }
   }
 }

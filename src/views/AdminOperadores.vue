@@ -1,16 +1,5 @@
 <template>
   <div class="AdminOperador">
-    <div v-if="showAlert1">
-      <b-alert
-        :show="dismissCountDown"
-        dismissible
-        :variant= this.tipe
-        @dismissed="dismissCountDown=0"
-        @dismiss-count-down="countDownChanged"
-      >
-        {{mensaje}}
-      </b-alert>
-    </div>
     <div id="nav1" class="row">
       <div class="col-md-10">
         <b-input-group prepend="Buscar" >
@@ -29,6 +18,18 @@
         </b-list-group>
       </div>
     </div>
+    <div v-if="showAlert1">
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        :variant= this.tipe
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{mensaje}}
+      </b-alert>
+    </div>
+    <h1 align="center"><strong>Lista de Operadores</strong></h1>
     <div>
       <b-button variant="primary" @click="actual"><br><strong>Actualizar</strong><br><br></b-button>
       <b-button variant="danger" v-on:click="actual2"><br><strong>Registrar</strong><br><br></b-button>

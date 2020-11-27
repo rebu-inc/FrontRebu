@@ -18,7 +18,8 @@
         </b-list-group>
       </div>
     </div>
-   <div>
+    <h1 align="center"><strong>Mis Tickets</strong></h1>
+    <div>
       <b-alert
         :show="dismissCountDown"
         dismissible
