@@ -1,41 +1,45 @@
 <template>
-
-  <div class="Servicios">
-    <h1 align="center"><strong>Servicios prestados</strong></h1>
-    <div heigh="50%">
-      <!--<b-list-group v-for="(dat,index) in tabla" :key="index">
-         <b-list-group-item :id="dat.nombre" @click="showModal(index)" href="#">{{dat.nombre}}</b-list-group-item>
-      </b-list-group> -->
-      <div>
-        <div class="row" id="serv" v-if="showServ" align="center">
-          <div class="accordion" role="tablist" id="acord" >
-            <b-card no-body class="mb-1" v-for="(info, index) in tabla" :key="index">
-              <b-card-header header-tag="header" class="p-1" role="tab">
-             <b-button block v-b-toggle="info.nombre.toString()" variant="info">{{info.nombre}}</b-button>
-            </b-card-header>
-            <b-collapse :id="info.nombre.toString()" invisible accordion="my-accordion" role="tabpanel">
+  <div class="ClienteServicios">
+    <div>
+      <h1 align="center"><strong>Servicios prestados</strong></h1>
+    </div>
+    <div>
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        :variant= this.tipe
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{mensaje}} ...
+      </b-alert>
+    </div>
+    <div id="log" class="preloader" v-if="showLogin"></div>
+    <div class="row" id="serv" >
+      <div class="accordion" role="tablist" id="acord1" >
+        <b-card no-body class="mb-1" v-for="(info, index) in tabla" :key="index">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle="info.idservicios.toString()" variant="info">{{info.nombre}}</b-button>
+          </b-card-header>
+          <b-collapse :id="info.idservicios.toString()" invisible accordion="my-accordion" role="tabpanel">
             <b-card-body>
-                <b-card-text>Descripcion: {{info.descripcion}}</b-card-text>
+              <b-card-text>Descripcion: {{info.descripcion}}</b-card-text>
             </b-card-body>
             <div class="Cliente-Tickets">
               <b-button  class="mt-2"  block @click="showModal(index)" href="#">Solicitar Servicio</b-button>
             </div>
-            </b-collapse>
+          </b-collapse>
         </b-card>
       </div>
     </div>
-     <!--</b-list-group> -->
-      </div>
-
+    <div>
       <b-button type="submit" variant="primary" @click="actual">actualizar </b-button>
-
       <b-modal ref="my-modal">
-       <div class="d-block text-center"></div>
+        <div class="d-block text-center"></div>
         <b-button type ='submit' class="mt-2" variant="outline-warning" block @click="toggleModal">Solicitar Servicio</b-button>
       </b-modal>
     </div>
   </div>
-
 </template>
 <script>
 import axios from 'axios'
@@ -52,9 +56,13 @@ export default {
         descripcion: '',
         idUsuario: 0
       },
-      tabla: [{
-      }],
-      showServ: true
+      tabla: [],
+      showServ: true,
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      tipe: '',
+      mensaje: '',
+      showLogin: false
     }
   },
 
@@ -76,12 +84,8 @@ export default {
       this.actualizar(event)
     },
     onSubmit (event) {
-      console.log(parseInt(localStorage.getItem('nitES'), 10))
-      console.log(this.tabla[this.i].empres)
-      console.log(this.tabla[this.i].idservicios)
-      console.log(this.tabla[this.i].descripcion)
-      console.log(parseInt(localStorage.getItem('IDpersona'), 10))
       this.showServ = true
+      this.showLogin = true
       axios
         .post(localStorage.getItem('url') + '/solicitud/servicio/', {
           nitEmpresaSolicitando: parseInt(localStorage.getItem('nitES'), 10),
@@ -98,28 +102,32 @@ export default {
           }
         }
         ).then(response => {
-          console.log(response)
           if (response.data.respuesta === 'Solicitud Fallida') {
-            alert('Solicitud Fallida')
+            this.showAlert('warning', 'Solicitud Fallida')
           } else {
-            alert('Solicitud Exitosa')
+            this.showAlert('success', 'Solicitud Exitosa')
           }
+          this.showLogin = false
         })
       event.preventDefault()
     },
-    actualizar (event) {
+    actualizar () {
+      this.showLogin = true
       axios
         .get(localStorage.getItem('url') + '/empleado/cat_serv', {
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
         }
         ).then(response => {
           this.tabla = response.data
+          this.showLogin = false
         })
-      event.preventDefault()
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert (tipo, mensaje) {
+      this.tipe = tipo
+      this.mensaje = mensaje
+      this.dismissCountDown = this.dismissSecs
     }
   },
   mounted () {
@@ -128,11 +136,11 @@ export default {
 }
 </script>
 <style>
+#acord1{
+  width: 100%;
+}
 #serv{
   margin-left:0px;
-}
-#card{
-  width: 600px;
 }
 #actualizar{
   background: white;
@@ -142,9 +150,6 @@ export default {
 .row{
   margin-left: 0px;
   margin-right: 0px;
-}
-#acord{
-  width: 100%;
 }
 #log{
   text-align: center;
@@ -161,3 +166,12 @@ export default {
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
