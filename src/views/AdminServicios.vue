@@ -1,5 +1,24 @@
 <template>
   <div class="Servicios">
+    <div id="nav1" class="row">
+      <div class="col-md-10">
+        <b-input-group prepend="Buscar" >
+          <b-form-input v-model="filtro" v-on:keyup="filtrar"></b-form-input>
+          <b-input-group-append>
+            <b-button variant="info">ir</b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </div>
+      <div class="col-md-2">
+        <div class="row">
+          <b-avatar  button @click="ver" variant="info"></b-avatar>
+        </div>
+        <b-list-group v-if="menu" id="menuSalir">
+          <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
+        </b-list-group>
+      </div>
+    </div>
+    <h1 align="center"><strong>Servicios</strong></h1>
     <div>
       <b-alert
         :show="dismissCountDown"
@@ -59,7 +78,7 @@
 
     <div class="row" id="serv" v-if="showServ">
       <div class="accordion" role="tablist" id="acord" >
-        <b-card no-body class="mb-1" v-for="(i, index) in items" :key="index">
+        <b-card no-body class="mb-1" v-for="(i, index) in filtrado" :key="index">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle="i.idservicios.toString()" variant="info">{{i.nombre}}</b-button>
           </b-card-header>
@@ -91,10 +110,35 @@ export default {
       showCrea: false,
       items: [],
       showLogin1: false,
-      showLogin2: false
+      showLogin2: false,
+      menu: false,
+      filtro: '',
+      filtrado: []
     }
   },
   methods: {
+    filtrar () {
+      this.filtrado = []
+      this.filtro = this.filtro.toLowerCase()
+      for (const servicio of this.items) {
+        const nombre = servicio.nombre.toLowerCase()
+        if (nombre.indexOf(this.filtro) !== -1) {
+          this.filtrado.push(servicio)
+        }
+      }
+      console.log(this.filtrado)
+    },
+    onClick () {
+      localStorage.removeItem('token-Admin')
+      this.$router.push('/Login')
+    },
+    ver () {
+      if (this.menu) {
+        this.menu = false
+      } else {
+        this.menu = true
+      }
+    },
     actualizar (event) {
       this.showLogin1 = true
       this.showServ = true
@@ -104,6 +148,7 @@ export default {
         if (response.status === 200) {
           this.showAlert('success', 'Fue actualizado el listado de eventos')
           this.items = response.data
+          this.filtrar()
         } else {
           this.showAlert()
         }
@@ -187,7 +232,7 @@ export default {
   }
 }
 
-</script>>
+</script>
 <style>
 #serv{
   margin-left:0px;

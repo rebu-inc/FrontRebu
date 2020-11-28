@@ -1,17 +1,47 @@
 <template>
   <div class="AdminOperador">
-     <b-button variant="primary" @click="actual"><br><strong>Actualizar</strong><br><br></b-button>
-     <b-button variant="danger" v-on:click="showreg = !showreg"><br><strong>Registrar</strong><br><br></b-button>
-       <router-view></router-view>
-      <!---->
-      <div>
-      <div class="row" id="serv" v-if="showServ">
-      <div class="accordion" role="tablist" id="acord" >
-        <b-card no-body class="mb-1" v-for="(info, index) in tabla" :key="index">
+    <div id="nav1" class="row">
+      <div class="col-md-10">
+        <b-input-group prepend="Buscar" >
+          <b-form-input v-model="filtro" v-on:keyup="filtrar"></b-form-input>
+          <b-input-group-append>
+            <b-button variant="info">ir</b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </div>
+      <div class="col-md-2">
+        <div class="row">
+          <b-avatar  button @click="ver" variant="info"></b-avatar>
+        </div>
+        <b-list-group v-if="menu" id="menuSalir">
+          <b-list-group-item button  @click="onClick" >Logout</b-list-group-item>
+        </b-list-group>
+      </div>
+    </div>
+    <div v-if="showAlert1">
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        :variant= this.tipe
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{mensaje}}
+      </b-alert>
+    </div>
+    <h1 align="center"><strong>Lista de Operadores</strong></h1>
+    <div>
+      <b-button variant="primary" @click="actual"><br><strong>Actualizar</strong><br><br></b-button>
+      <b-button variant="danger" v-on:click="actual2"><br><strong>Registrar</strong><br><br></b-button>
+    </div>
+    <div id="log" class="preloader" v-if="showLogin"></div>
+    <div class="row" id="serv" v-if="showServ">
+      <div class="accordion" role="tablist" id="acord">
+        <b-card no-body class="mb-1" v-for="(info, index) in filtrado" :key="index">
           <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle="info.nombre.toString()" variant="info">{{info.nombre}}</b-button>
+            <b-button block v-b-toggle="info.cedula.toString()" variant="info">{{info.nombre}}</b-button>
           </b-card-header>
-          <b-collapse :id="info.nombre.toString()" invisible accordion="my-accordion" role="tabpanel">
+          <b-collapse :id="info.cedula.toString()" invisible accordion="my-accordion" role="tabpanel">
             <b-card-body>
               <b-card-text>Apellidos: {{info.apellidos}}</b-card-text>
               <b-card-text>Correo: {{ info.correo }}</b-card-text>
@@ -21,14 +51,10 @@
           </b-collapse>
         </b-card>
       </div>
-
-          <!---->
-      </div>
     </div>
-       <div id="log" class="preloader" v-if="showLogin"></div>
-         <div v-if="showreg" align="center" class="pt-5 pl-5" id="RegistroAdmin">
+    <div v-if="showreg" align="center" class="pt-5 pl-5" id="RegistroAdmin">
     <b-card style="width:700px">
-        <b-alert
+      <b-alert
         :show="dismissCountDown"
         dismissible
         :variant= this.tipe
@@ -37,108 +63,104 @@
       >
         {{mensaje}}
       </b-alert>
-
       <h3>REGISTRO</h3>
+      <b-form @submit="actualizar" @reset="onReset" v-if="show" class="pt-2">
+        <b-form-group
+          label-cols="1"
+          label-cols-lg="4"
+          label="Nombre:"
+          label-for="input1"
+          style="width:550px"
+        >
+          <b-form-input inline
+            id="input1"
+            v-model="form.nombre"
+            required
+            placeholder="Nombre"
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group
+          label-cols="4"
+          label-cols-lg="4"
+          label="Apellidos"
+          label-for="input2"
+          style="width:550px"
+        >
+          <b-form-input
+            id="input2"
+            v-model="form.Apellidos"
+            required
+            placeholder="Apellidos"
+          ></b-form-input>
+        </b-form-group>
 
-    <b-form @submit="actualizar" @reset="onReset" v-if="show" class="pt-2">
+        <b-form-group
+          label-cols="4"
+          label-cols-lg="4"
+          label="Clave:"
+          label-for="input3"
+          style="width:550px"
+        >
+          <b-form-input
+            id="input3"
+            v-model="form.Clave"
+            required
+            placeholder="Clave"
+          ></b-form-input>
+        </b-form-group>
 
-      <b-form-group
-       label-cols="1"
-       label-cols-lg="4"
-       label="Nombre:"
-       label-for="input1"
-       style="width:550px"
-      >
-        <b-form-input inline
-          id="input1"
-          v-model="form.nombre"
-          required
-          placeholder="Nombre"
-        ></b-form-input>
-      </b-form-group>
+        <b-form-group
+          label-cols="4"
+          label-cols-lg="4"
+          type="number"
+          label="Cedula:"
+          label-for="input4"
+          style="width:550px"
+        >
+          <b-form-input
+            id="input4"
+            v-model="form.Cedula"
+            required
+            placeholder="Cedula"
+          ></b-form-input>
+        </b-form-group>
 
-      <b-form-group
-       label-cols="4"
-       label-cols-lg="4"
-       label="Apellidos"
-       label-for="input2"
-       style="width:550px"
-      >
-        <b-form-input
-          id="input2"
-          v-model="form.Apellidos"
-          required
-          placeholder="Apellidos"
-        ></b-form-input>
-      </b-form-group>
+        <b-form-group style="width:550px"
+          label-cols="4"
+          label-cols-lg="4"
+          label="Usuario:"
+          label-for="input5"
+        >
+          <b-form-input
+            id="input5"
+            v-model="form.Usuario"
+            required
+            placeholder="Usuario"
+          ></b-form-input>
+        </b-form-group>
 
-      <b-form-group
-        label-cols="4"
-        label-cols-lg="4"
-        label="Clave:"
-        label-for="input3"
-        style="width:550px"
-      >
-        <b-form-input
-          id="input3"
-          v-model="form.Clave"
-          required
-          placeholder="Clave"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        label-cols="4"
-        label-cols-lg="4"
-        type="number"
-        label="Cedula:"
-        label-for="input4"
-        style="width:550px"
-      >
-        <b-form-input
-          id="input4"
-          v-model="form.Cedula"
-          required
-          placeholder="Cedula"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group style="width:550px"
-        label-cols="4"
-        label-cols-lg="4"
-        label="Usuario:"
-        label-for="input5"
-      >
-        <b-form-input
-          id="input5"
-          v-model="form.Usuario"
-          required
-          placeholder="Usuario"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        label-cols="4"
-        label-cols-lg="4"
-        label="Correo:"
-        label-for="input6"
-        style="width:550px"
-      >
-        <b-form-input
-          id="input6"
-          v-model="form.Correo"
-          type='email'
-          required
-          placeholder="Correo"
-        ></b-form-input>
-      </b-form-group>
+        <b-form-group
+          label-cols="4"
+          label-cols-lg="4"
+          label="Correo:"
+          label-for="input6"
+          style="width:550px"
+        >
+          <b-form-input
+            id="input6"
+            v-model="form.Correo"
+            type='email'
+            required
+            placeholder="Correo"
+          ></b-form-input>
+        </b-form-group>
       <b-button  type="submit" variant="primary">Submit</b-button>
       <b-button class="m-2" type="reset" variant="danger">Reset</b-button>
       <div class="preloader" v-if="showLogin7"></div>
     </b-form>
-  </b-card>
+    </b-card>
+    </div>
   </div>
-       </div>
 </template>
 
 <script>
@@ -166,14 +188,45 @@ export default {
       mensaje: '',
       show: true,
       tabla: [],
+      menu: false,
       showServ: true,
       showreg: false,
-      showLogin7: false
+      showLogin7: false,
+      showAlert1: true,
+      filtrado: [],
+      filtro: ''
     }
   },
   methods: {
+    filtrar () {
+      this.filtrado = []
+      this.filtro = this.filtro.toLowerCase()
+      for (const operador of this.tabla) {
+        const nombre = operador.nombre.toLowerCase()
+        if (nombre.indexOf(this.filtro) !== -1) {
+          this.filtrado.push(operador)
+        }
+      }
+    },
+    onClick () {
+      localStorage.removeItem('token-Admin')
+      this.$router.push('/Login')
+    },
+    ver () {
+      if (this.menu) {
+        this.menu = false
+      } else {
+        this.menu = true
+      }
+    },
     actual () {
       this.onSubmit(event)
+      this.showreg = false
+      this.showServ = true
+    },
+    actual2 () {
+      this.showreg = !this.showreg
+      this.showServ = !this.showServ
     },
     onSubmit (event) {
       this.showLogin = true
@@ -193,6 +246,7 @@ export default {
           console.log(response)
           this.tabla = response.data
           this.showLogin = false
+          this.filtrar()
         })
     },
     actualizar (event) {
@@ -259,10 +313,27 @@ export default {
 </script>
 
 <style>
+#serv{
+  margin-left:0px;
+}
+#card{
+  width: 600px;
+}
+#actualizar{
+  background: white;
+  color: black;
+  border-color: #087589;
+}
+.row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+#acord{
+  width: 100%;
+}
 .preloader {
   width: 70px;
   height: 70px;
-  display: inline-block;
   border: 10px solid #eee;
   border-top: 10px solid rgb(79, 120, 255);
   border-radius: 50%;
@@ -278,4 +349,5 @@ export default {
     transform: rotate(360deg);
   }
 }
+
 </style>
