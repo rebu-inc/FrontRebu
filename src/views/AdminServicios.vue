@@ -18,7 +18,9 @@
         </b-list-group>
       </div>
     </div>
+    <br>
     <h1 align="center"><strong>Servicios</strong></h1>
+    <br>
     <div>
       <b-alert
         :show="dismissCountDown"
