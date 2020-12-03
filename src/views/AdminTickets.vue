@@ -49,6 +49,49 @@
               <b-card-text>Operador Responsable: {{i.nombreOperador}}</b-card-text>
               <b-card-text>Descripcion: {{ i.descirpcionTicket}}</b-card-text>
             </b-card-body>
+            <!--- lista desplegable --->
+            <div class="row">
+              <div class="col-md-6">
+                <b-form-select
+                  v-model="selected"
+                  :options="tabla"
+                  class="mb-3"
+                  value-field="id_persona"
+                  text-field="nombre"
+                  disabled-field="notEnabled"
+                ></b-form-select>
+              </div>
+              <div class="col-md-3">
+                <template>
+                  <div>
+                    <b-input-group class="mb-3">
+                      <b-form-input
+                        id="example-input"
+                        v-model="value"
+                        type="text"
+                        placeholder="YYYY-MM-DD"
+                        autocomplete="off"
+                      ></b-form-input>
+                      <b-input-group-append>
+                        <b-form-datepicker
+                          no-flip=false
+                          v-model="value"
+                          button-only
+                          right
+                          locale="en-US"
+                          aria-controls="example-input"
+                        ></b-form-datepicker>
+                      </b-input-group-append>
+                    </b-input-group>
+                  </div>
+                </template>
+              </div>
+              <div class="col-md-3">
+                 <b-button variant="outline-primary" @click="Asignar(i.idTicket, value)">Asignar</b-button>
+              </div>
+            </div>
+            <!--- lista desplegable --->
+
             <div class="Cliente-Tickets">
               <b-button  class="mt-2"  block @click="Despdf(index)">Descargar pdf</b-button>
             </div>
@@ -67,7 +110,19 @@ export default {
   components: {},
   data () {
     return {
+      form: {
+        idEmpresa: localStorage.getItem('IDEmpresa'),
+        nombre: '',
+        Apellidos: '',
+        Clave: '',
+        Cedula: '',
+        Usuario: '',
+        Correo: ''
+      },
+      value: '',
+      selected: '',
       items: [],
+      tabla: [],
       dismissSecs: 5,
       dismissCountDown: 0,
       tipe: '',
@@ -89,6 +144,37 @@ export default {
       } else {
         this.menu = true
       }
+    },
+    Listar () {
+      Axios
+        .post(localStorage.getItem('url') + '/solicitud/operadores/', {
+          idEmpresa: localStorage.getItem('IDEmpresa')
+        }
+        ).then(response => {
+          console.log(response)
+          this.tabla = response.data
+        })
+    },
+    Asignar (IdT, fecha) {
+      Axios
+        .post(localStorage.getItem('url') + '/registro/operador_ticket', {
+          id_persona: localStorage.getItem('IDpersona'),
+          id_ticket: IdT,
+          fechaProgrmada: fecha
+        }
+        ).then(response => {
+          if (response.status === 200) {
+            this.showAlert('success', 'Actualizado')
+            this.items = response.data
+          } else {
+            this.showAlert('warning', 'error al asignar ')
+          }
+          console.log(response)
+          this.tabla = response.data
+        })
+    },
+    actual () {
+      this.Asignar(event)
     },
     Despdf (index) {
       var doc = jsPDF()
@@ -150,6 +236,7 @@ export default {
   },
   mounted () {
     this.actualizar()
+    this.Listar()
   }
 }
 </script>
@@ -172,6 +259,14 @@ export default {
 }
 #acord{
   width: 100%;
+}
+element.style {
+    position: absolute;
+    orientation: 'bottom';
+    will-change: transform;
+    top: 0px;
+    left: 0px;
+    transform: translate3d(-242px, -186px, 0px);
 }
 .preloader {
   width: 70px;
