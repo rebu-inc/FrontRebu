@@ -19,7 +19,9 @@
       </div>
     </div>
     <div>
+      <br>
       <h1 align="center"><strong>Servicios prestados</strong></h1>
+      <br>
     </div>
     <div>
       <b-alert
