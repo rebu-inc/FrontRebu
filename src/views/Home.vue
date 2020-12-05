@@ -23,7 +23,7 @@
 </template>
 
 <script>
-localStorage.setItem('url', 'http://localhost:4040')
+localStorage.setItem('url', 'https://springboot-ticketwork.herokuapp.com')
 </script>
 
 <style>
