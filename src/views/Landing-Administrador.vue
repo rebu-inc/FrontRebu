@@ -1,24 +1,15 @@
-<template><div id="app1">
-  <div class="row">
-    <div id="nav3">
-      <b-button-group vertical style="width:270px" size="lg">
-        <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Administrador!<br></b-button>
-        <b-button variant="danger" router-link tag="li" to="/AdminServicios"><br><strong>Servicios</strong><br><br></b-button>
-        <b-button variant="danger" router-link tag="li" to="/AdminOperadores"><br><strong>Operadores</strong><br><br></b-button>
-        <b-button variant="danger" router-link tag="li" to="/AdminTickets"><br><strong>Tickets</strong><br><br></b-button>
-        <b-button variant="danger" router-link tag="li" to="/AdminClientes"><br><strong>Clientes</strong><br><br></b-button>
-        <b-button variant="danger" router-link tag="li" to="/AdminReporte"><br><strong>Reporte</strong><br><br></b-button>
-      </b-button-group>
+<template>
+  <div id="app" >
+    <div class="row">
+      <div id="nav" class="col-md-3 col-sd-2 col-xs-1">
+        <b-button-group vertical style="width:100%" size="lg">
+          <b-button variant="danger"> <img src="../assets/ticketwork.png" height="90px" align="left"><br>¡Hola Administrador!<br></b-button>
+          <b-button variant="danger" router-link tag="li" to="/AdminServicios"><br><strong>Servicios</strong><br><br></b-button>
+          <b-button variant="danger" router-link tag="li" to="/AdminOperadores"><br><strong>Operadores</strong><br><br></b-button>
+          <b-button variant="danger" router-link tag="li" to="/AdminTickets"><br><strong>Tickets</strong><br><br></b-button>
+        </b-button-group>
       </div>
-        <div class="col" style="width:10px">
-          <div id="nav1">
-            <b-input-group prepend="Buscar" style="width:1000px">
-              <b-form-input></b-form-input>
-              <b-input-group-append>
-                <b-button variant="info">ir</b-button>
-              </b-input-group-append>
-            </b-input-group>
-          </div>
+      <div class="col-md-9 col-sd-6 col-xs-3" style="width:100%">
         <router-view/>
       </div>
     </div>
@@ -28,14 +19,16 @@
 <script>
 export default {
   name: 'Landing-Administrador',
-  beforeCreate () {
-    console.log('jash')
-    if (!localStorage.getItem('token-Admin')) {
-      this.$router.push('/Login')
+  data () {
+    return {
     }
   },
-  beforeDestroy () {
-    localStorage.clear()
+  methods: {
+  },
+  beforeCreate () {
+    if (!localStorage.getItem('token-Admin')) {
+      this.$router.push('Login')
+    }
   }
 }
 </script>
@@ -46,28 +39,24 @@ export default {
   text-align: left;
   color: #2c3e50;
 }
-
-#nav3 {
+#nav {
   list-style: none;
   padding:0px;
-  background: #f4e0de;
-  width:19%;
+  background: #dc3545;
+  width:100%;
   max-width: 10000px;
   color: #EB6359;
+  height: 100%;
 }
-
+#menuSalir {
+  position: fixed;
+}
 #nav1 {
   list-style: none;
-  padding:15px;
+  padding:0px;
   background: #7DADE6;
   width:100%;
   max-width: 10000px;
-}
-
-#nav3 a {
-  text-decoration: none;
-  color: black;
-  display: inline-block;
 }
 
 li {
@@ -91,7 +80,7 @@ li:hover{
 #con{
   background: #087589;
   position: relative;
-  width: 10%;
+  width: 100%;
   bottom:0;
   color: black;
   position:fixed;

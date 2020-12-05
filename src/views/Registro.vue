@@ -104,11 +104,16 @@ export default {
         evt.preventDefault()
         alert('Empresa Ya Registrada')
         // Trick to reset/clear native browser form validation state
-        this.show = false
         this.$nextTick(() => {
-          this.show = true
         })
       }
+    },
+    onReset () {
+      this.form.nombre = ''
+      this.form.nit = ''
+      this.form.email = ''
+      this.form.telefono = ''
+      this.form.checked = []
     }
   }
 }
