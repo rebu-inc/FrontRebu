@@ -1,5 +1,5 @@
 <template>
-  <div class="Servicios">
+  <div class="Servcios">
     <div id="nav" class="row">
       <div class="col-md-10">
         <b-input-group prepend="Buscar" >
