@@ -4,12 +4,12 @@
     <b-row id="texto">
       <b-col md="6" class="pt-5 pl-5">
         <h2 class="text-justify font-weight-bold">
-          En TicketWork ofrecemos servicios que te brindan una mejor solución a la necesidades de tu empresa
-          al ocuparse del desarrollo de las tareas diarias, de su correcto registro y cumplimiento.
+          En Rebu ofrecemos servicios que te brindan una mejor solución a la necesidades cotidianas y 
+          permite entregas a la mayor brevedad posible, rebu cuenta con el mejor talento humano capacitado para brindar un servicio excepcional.
         </h2>
       </b-col>
       <b-col md="6" class="pt-3">
-        <img src="../assets/serv2.jpg" style="width:500px" height="330" alt="holi1">
+        <img src="../assets/delivery.jpg" style="width:500px" height="330" alt="holi1">
       </b-col>
     </b-row>
   </div>
@@ -19,7 +19,7 @@
 <script>
 console.log(localStorage.getItem('hola'))
 export default {
-  name: 'servicio'
+  name: 'Delivery'
 }
 </script>
 
