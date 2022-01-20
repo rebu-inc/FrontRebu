@@ -1,6 +1,6 @@
 <template><div id="app2">
   <div id="nav2">
-      <router-link tag="li" id="li1" to="/"> <img src="../assets/ticketwork.png" height="90px" align="center"></router-link>
+      <router-link tag="li" id="li1" to="/"> <img src="../assets/rebu.jpeg" height="90px" align="center"></router-link>
       <router-link tag="li" to="/QuienesSomos" >Quienes somos </router-link>
       <router-link tag="li" to="/Servicios">Servicios</router-link>
       <router-link tag="li" to="/Contacto">Contacto</router-link>
