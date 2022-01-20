@@ -5,10 +5,10 @@
     <div id="contacto">
       <h1>Let´s work together</h1>
       <div id="img-tex">
-        <li id="img"><img src="../assets/Saludo.jpg" ></li>
+        <li id="img"><img src="../assets/repar.jpg" ></li>
         <li id="txt">
           <p id="txt1">Grupo</p>
-          <p id="txt2">TicketWork</p>
+          <p id="txt2">Rebu</p>
           <p id="txt1">Celular</p>
           <a id="txt2" href="https://api.whatsapp.com/send?phone=+573212660579&text=Hola" target="blakc">+57 3212660579</a>
           <p id="txt1">Email</p>

@@ -7,11 +7,10 @@
       </b-col>
       <b-col md="6" class="pt-3 pr-5">
         <h2 class="text-justify font-weight-bold">
-          TicketWork esta compuesto por un grupo de desarrolladores que buscan ser una
-          solución para las labores diarias de todo tipo empresa, brindando herramientas útiles y fáciles
-          de usar para el manejo del personal, atención de clientes y registro de las diversas actividades
-          de la compañía
-        </h2>
+          Rebu es una aplicacion que permite a los usuarios que necesitan transporte o envios se consigan fácilmente, 
+          encontrar socios conductores que ofrecen este servicio, los cuales tratan a los clientes de la manera mas respetuosa y 
+          cuenta con los precios mas accesibles en el mercado de aplicaciones moviles.
+          </h2>
       </b-col>
     </b-row>
   </div>
